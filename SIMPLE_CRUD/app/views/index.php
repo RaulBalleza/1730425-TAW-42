@@ -6,6 +6,6 @@
     <title>Document</title>
 </head>
 <body>
-    <?php echo "HOLA MUNDO; PHP JALANDO AL 100" ?>
+    <?php phpinfo(); ?>
 </body>
 </html>
