@@ -8,4 +8,4 @@
 <body>
     <?php phpinfo(); ?>
 </body>
-</html>
+</html> 
