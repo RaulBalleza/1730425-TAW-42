@@ -20,6 +20,7 @@ class CreateProductsTable extends Migration
             $table->double('sale_price', 8, 2);	
             $table->double('purchase_price', 8, 2);	
             $table->integer('inventory');
+            $table->string('category');
             $table->timestamps();
         });
     }

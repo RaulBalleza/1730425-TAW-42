@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Product;
+use App\Product_categories;
 use Illuminate\Http\Request;
 
-class ProductController extends Controller
+class ProductCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $product = Product::all();
-        return view('products/index', compact('product'));
+        $categories = Product_categories::all();
+        return view('products_categories/index', compact('categories'));
     }
 
     /**
@@ -25,7 +25,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('products/create');
+        return view('products_categories/create');
     }
 
     /**
@@ -37,16 +37,11 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $storeData = $request->validate([
-            'name' => 'required|max:255',
-            'description' => 'max:255',
-            'sale_price' => 'required|numeric',
-            'purchase_price' => 'required|numeric',
-            'inventory' => 'required|numeric',
-            'category' => 'required|max:255'
+            'name' => 'required|max:255'
         ]);
-        $product = Product::create($storeData);
+        $category = Product_categories::create($storeData);
 
-        return redirect('/products')->with('completed', 'Product has been saved!');
+        return redirect('product_categories')->with('completed', 'Product category has been saved!');
     }
 
     /**
@@ -68,8 +63,8 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $product = Product::findOrFail($id);
-        return view('products/edit', compact('product'));
+        $categories = Product_categories::findOrFail($id);
+        return view('products_categories/edit', compact('categories'));
     }
 
     /**
@@ -82,15 +77,10 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $updateData = $request->validate([
-            'name' => 'required|max:255',
-            'description' => 'max:255',
-            'sale_price' => 'required|numeric',
-            'purchase_price' => 'required|numeric',
-            'inventory' => 'required|numeric',
-            'category' => 'required|max:255'
+            'name' => 'required|max:255'
         ]);
-        Product::whereId($id)->update($updateData);
-        return redirect('/products')->with('completed', 'Product has been updated');
+        Product_categories::whereId($id)->update($updateData);
+        return redirect('/product_categories')->with('completed', 'Product Category has been updated');
     }
 
     /**
@@ -101,9 +91,9 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $product = Product::findOrFail($id);
-        $product->delete();
+        $category = Product_categories::findOrFail($id);
+        $category->delete();
 
-        return redirect('/products')->with('completed', 'Product has been deleted');
+        return redirect('/product_categories')->with('completed', 'Product Category has been deleted');
     }
 }

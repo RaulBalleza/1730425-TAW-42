@@ -18,6 +18,7 @@ Route::get('/', function () {
 });
 
 Route::resource('products', 'ProductController');
+Route::resource('product_categories', 'ProductCategoryController');
 
 
 Auth::routes();

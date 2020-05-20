@@ -1,6 +1,7 @@
-@extends('layout')
+@extends('layouts.app')
 
 @section('content')
+@php( $categories = \App\Product_categories::all() )
 
 <style>
     .container {
@@ -49,6 +50,15 @@
             <div class="form-group">
                 <label for="inventory">Inventory</label>
                 <input type="text" class="form-control" name="inventory" value="{{ $product->inventory }}" />
+            </div>
+            <div class="form-group">
+                <label for="category">Category</label>
+                <select name="category" class="form-control">
+                    @foreach($categories as $category)
+                    <option value="{{ $category->name }}">{{ $category->name }}</option>
+                    @endforeach
+                    <option value="Other">Other</option>
+                </select>
             </div>
             <button type="submit" class="btn btn-block btn-danger">Update Product</button>
         </form>

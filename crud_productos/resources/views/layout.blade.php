@@ -6,8 +6,10 @@
       <meta http-equiv="X-UA-Compatible" content="ie=edge">
       <title>Laravel 7/6 CRUD App Example</title>
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+      <script src="https://kit.fontawesome.com/8de79ec734.js" crossorigin="anonymous"></script>}
    </head>
    <body>
+      
       <div class="container">
             @yield('content')
         </div>
