@@ -8,13 +8,13 @@
 $controllers=array(
 	// 'Alumno'=>['index','register','save','show','updateshow','update','delete','search','error'],
 	'Usuario'=>['login','iniciar','logout'],
-	/*'Producto'=>['mostrar','registrar','guardar','actualizarProducto','actualizar','eliminar'],
+	'Estudiante'=>['mostrar','registrar','guardar','actualizarEstudiante','actualizar','eliminar'],
+	'Carrera'=>['mostrar','registrar','guardar','actualizarCarrera','actualizar','eliminar'],
+	'Universidad'=>['mostrar','registrar','guardar','actualizarUniversidad','actualizar','eliminar'],
+	'Producto'=>['mostrar','registrar','guardar','actualizarProducto','actualizar','eliminar'],
 	'CategoriasProducto'=>['mostrar','registrar','guardar','actualizarCategoria','actualizar','eliminar'],
 	'Fabricante'=>['mostrar','registrar','guardar','actualizarFabricante','actualizar','eliminar'],
-	'CategoriasFabricante'=>['mostrar','registrar','guardar','actualizarCategoria','actualizar','eliminar'],*/
-	'Estudiante'=>['mostrar','registrar','guardar','actualizarEstiudiante','actualizar','eliminar'],
-	'Carrera'=>['mostrar','registrar','guardar','actualizarProducto','actualizar','eliminar'],
-	'Universidad'=>['mostrar','registrar','guardar','actualizarProducto','actualizar','eliminar']
+	'CategoriasFabricante'=>['mostrar','registrar','guardar','actualizarCategoria','actualizar','eliminar'],
 );
 
 if ( array_key_exists($controller,  $controllers) ) {
@@ -39,7 +39,7 @@ function call($controller, $action){
 			require_once('Model/Usuario.php');
 			$controller= new UsuarioControlador();
 		break;
-		/*case 'Producto':
+		case 'Producto':
 			require_once('Model/Producto.php');
 			$controller= new ProductoControlador();
 		break;
@@ -54,7 +54,7 @@ function call($controller, $action){
 		case 'CategoriasFabricante':
 			require_once('Model/CategoriasFabricante.php');
 			$controller= new CategoriasFabricanteControlador();
-		break;*/
+		break;
 		case  'Estudiante':
 			require_once('Model/Estudiante.php');
 			$controller= new EstudianteControlador();
@@ -74,4 +74,3 @@ function call($controller, $action){
 
 	$controller->{$action}();
 }
-?>
