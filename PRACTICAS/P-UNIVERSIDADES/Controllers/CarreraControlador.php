@@ -7,13 +7,15 @@ class CarreraControlador
     // Envia a la vista de mostrar
     function mostrar()
     {
-        $carreras = Carrera::obtenerCarreras();
+        $id = $_GET['id'];
+        $carreras = Carrera::obtenerCarreras($id);
 
         require_once('Views/Carreras/mostrar.php');
     }
     // Envia a la vista de registro
     function registrar()
     {
+        $id = $_GET['id'];
         require_once('Views/Carreras/registrar.php');
     }
 

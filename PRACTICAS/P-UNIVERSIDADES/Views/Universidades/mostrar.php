@@ -39,6 +39,10 @@
                             <a href="#" class="trash" data-toggle='modal' data-target='#deleteModal'>
                                 <div class='text-center'><i class='fas fa-trash'></i> Eliminar</div>
                             </a>
+                            <div class="text-left">
+                                <a href="?controller=Carrera&action=mostrar&id=<?php echo $universidad->getId(); ?>" class="btn btn-sm btn-outline-primary">
+                                <i class="fas fa-pen"></i> Editar</a>
+                            </div>
                         </td>
                     </tr>
 

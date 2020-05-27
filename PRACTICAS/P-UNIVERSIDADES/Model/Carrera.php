@@ -62,12 +62,15 @@ class Carrera
     }
 
     // Método que recupera los todos registros de la tabla
-    public static function obtenerCarreras()
+    public static function obtenerCarreras($id)
     {
         $db = Db::getConnect();
         $carreras = [];
 
-        $select = $db->query('SELECT id, nombre, id_universidad FROM Carreras');
+        $select = $db->prepare('SELECT id, nombre,id_universidad FROM Carreras WHERE id_universidad=:id');
+
+        $select->bindValue('id', $id);
+        $select->execute();
 
         foreach ($select->fetchAll() as $carrera) {
             $carreras[] = new Carrera($carrera['id'], $carrera['nombre'], $carrera['id_universidad']);

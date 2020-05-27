@@ -20,7 +20,7 @@
     								<input type="text" name="txtNombre" class="form-control" id="nombre" placeholder="Ingrese el nombre de la categoría" data-parsley-pattern="^[A-zÀ-ú ]+$" data-parsley-length="[2, 30]" data-parsley-trigger="keyup" required>
     							</div>
     						</div>
-							<input type="text" name="txtUni" value="1" hidden>
+    						<input type="text" name="txtUni" value="<?php echo $id; ?>" hidden>
 
     						<div class="col-md-12 text-right">
     							<button type="reset" class="btn btn-secondary">Limpiar</button>

@@ -4,7 +4,7 @@
     <div class="row mt-4 mb-4">
         <div class="col-6">
             <div class="text-left">
-                <a href="?controller=Carrera&action=registrar" class="btn btn-sm btn-outline-primary"><i class="fa fa-fw fa-plus-circle"></i> Registrar carrera en esta universidad</a>
+                <a href="?controller=Carrera&action=registrar&id=<?php echo $id ?>" class="btn btn-sm btn-outline-primary"><i class="fa fa-fw fa-plus-circle"></i> Registrar carrera en esta universidad</a>
             </div>
         </div>
     </div>
@@ -34,6 +34,10 @@
                             <a href="#" class="trash" data-toggle='modal' data-target='#deleteModal'>
                                 <div class='text-center'><i class='fas fa-trash'></i> Eliminar</div>
                             </a>
+                            <div class="text-left">
+                                <a href="?controller=Estudiante&action=mostrar&id=<?php echo $carrera->getId(); ?>" class="btn btn-sm btn-outline-primary">
+                                    <i class="fas fa-pen"></i> Editar</a>
+                            </div>
                         </td>
                     </tr>
 

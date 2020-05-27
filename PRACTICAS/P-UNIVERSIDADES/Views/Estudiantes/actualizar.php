@@ -1,81 +1,57 @@
-    
-	<div class="container-fluid mt-4">
-		<div class="row">
-			<div class="container col-sm-12 col-md-10 col-lg-10 col-xl-7">
+<div class="container-fluid mt-4">
+	<div class="row">
+		<div class="container col-sm-12 col-md-10 col-lg-10 col-xl-7">
 
-				<div class="panel panel-default">
-					<div class="panel-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
 
-						<form action="?controller=Producto&action=actualizar" method="POST" data-parsley-validate> <!-- Agregar id para notificación overhang -->
+					<form action="?controller=Estudiante&action=actualizar" method="POST" data-parsley-validate>
+						<!-- Agregar id para notificación overhang -->
 
-							<div class="row">
-								<div class="col-12 col-sm-6 col-md-7">
-									<legend>Actualizar</legend>
-								</div>
-								<div class="col-12 col-sm-6 col-md-5">
+						<div class="row">
+							<div class="col-12 col-sm-6 col-md-7">
+								<legend>Registrar estudiante</legend>
+							</div>
+							<!--div class="col-12 col-sm-6 col-md-5">
 									<div class="text-right">
 										<a href="?controller=Producto&action=mostrar"><label>Regresar a lista de productos</label></a>
 									</div>
-								</div>
+								</div-->
+						</div>
+
+						<div class="form-row">
+
+							<div class="form-group col-sm-4">
+								<label for="matricula">Matricula</label><label class="text-danger">*</label>
+								<input value="<?php echo $estudiante->getMatricula(); ?>" type="text" name="txtMatricula" class="form-control" id="nombre" placeholder="Numero de matricula" data-parsley-pattern="^[A-zÀ-ú ]+$" data-parsley-length="[2, 30]" data-parsley-trigger="keyup" required disabled>
 							</div>
-							
-                            <input type="hidden" name="txtId" value="<?php echo $_GET['id'];?>">
-
-							<div class="form-row">
-								<div class="form-group col-sm-4">
-									<label for="nombre">Nombre</label>
-									<input type="text" name="txtNombre" class="form-control" id="nombre" placeholder="Nombre del producto" data-parsley-pattern="^[A-zÀ-ú ]+$" data-parsley-length="[2, 30]" data-parsley-trigger="keyup" required value="<?php echo $producto->getNombre() ?>">
-								</div>
-
-								<div class="form-group col-sm-4">
-									<label for="descripcion">Descripción</label>
-									<input type="text" name="txtDescripcion" class="form-control" id="descripcion" placeholder="Descripción del producto" data-parsley-pattern="^[A-zÀ-ú ]+$" data-parsley-length="[2, 120]" data-parsley-trigger="keyup" required value="<?php echo $producto->getDescripcion() ?>">
-								</div>
-
-                                <div class="form-group col-sm-4">
-									<label for="color">Color</label>
-									<input type="text" name="txtColor" class="form-control" id="color" placeholder="Color del producto" data-parsley-pattern="^[A-zÀ-ú ]+$" data-parsley-length="[2, 14]" data-parsley-trigger="keyup" required value="<?php echo $producto->getColor() ?>">
-								</div>
-							</div>
-							
-							<div class="form-row">
-                                <div class="form-group col-md-4">
-									<label for="cantidad">Precio de compra</label>
-									<div class="input-group">
-										<div class="input-group-prepend"><span class="input-group-text">MXN</span></div>
-										<input type="number" name="txtCompra" class="form-control" id="compra" data-parsley-length="[1, 8]" data-parsley-trigger="keyup" data-parsley-errors-container="#help-compra" required value="<?php echo $producto->getPrecioCompra() ?>">
-									</div>
-                                    <span id="help-compra"></span>
-								</div>
-
-                                <div class="form-group col-md-4">
-									<label for="cantidad">Precio de venta</label>
-									<div class="input-group">
-										<div class="input-group-prepend"><span class="input-group-text">MXN</span></div>
-										<input type="number" name="txtVenta" class="form-control" id="venta" data-parsley-length="[1, 8]" data-parsley-trigger="keyup" data-parsley-errors-container="#help-venta" required value="<?php echo $producto->getPrecioVenta() ?>">
-									</div>
-                                    <span id="help-venta"></span>
-								</div>
-								
-								<div class="form-group col-sm-4">
-									<label for="categoria">Categoria</label>
-									<select  name="txtCategoria" class="form-control" id="categoria" required>
-										<option value="">Seleccione una categoría</option>
-										<option value="1">Cat 01</option>
-										<option value="2">Cat 02</option>
-										<option value="3">Cat 03</option>
-										<option value="4">Cat 04</option>
-								    </select>
-								</div>
+							<div class="form-group col-sm-4">
+								<label for="nombre">Nombre</label><label class="text-danger">*</label>
+								<input value="<?php echo $estudiante->getNombre(); ?>" type="text" name="txtNombre" class="form-control" id="nombre" placeholder="Nombre del producto" data-parsley-pattern="^[A-zÀ-ú ]+$" data-parsley-length="[2, 30]" data-parsley-trigger="keyup" required>
 							</div>
 
-							<div class="col-md-12 text-right">
-								<button type="reset" class="btn btn-secondary">Limpiar</button>
-								<button type="submit" class="btn btn-primary">Registrar</button>
+							<div class="form-group col-sm-4">
+								<label for="descripcion">Promedio</label><label class="text-danger">*</label>
+								<input value="<?php echo $estudiante->getPromedio(); ?>" type="text" name="txtPromedio" class="form-control" id="descripcion" placeholder="Descripción del producto" data-parsley-pattern="^[A-zÀ-ú ]+$" data-parsley-length="[2, 120]" data-parsley-trigger="keyup" required>
 							</div>
-						</form>
-					</div>
+
+						</div>
+
+						<div class="form-row">
+							<div class="form-group col-sm-4">
+								<label for="color">Edad</label><label class="text-danger">*</label>
+								<input value="<?php echo $estudiante->getEdad(); ?>" type="text" name="txtEdad" class="form-control" id="color" placeholder="Color del producto" data-parsley-pattern="^[A-zÀ-ú ]+$" data-parsley-length="[2, 14]" data-parsley-trigger="keyup" required>
+							</div>
+							<input type="text" name="txtCarrera" value="<?php echo $id; ?>" hidden>
+						</div>
+
+						<div class="col-md-12 text-right">
+							<button type="reset" class="btn btn-secondary">Limpiar</button>
+							<button type="submit" class="btn btn-primary">Registrar</button>
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>
 	</div>
+</div>

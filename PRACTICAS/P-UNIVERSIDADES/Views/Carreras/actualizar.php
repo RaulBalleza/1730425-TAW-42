@@ -19,10 +19,7 @@
     						<div class="form-row">
     							<div class="form-group col-md-12">
     								<label for="nombre">Nombre de la categoría</label>
-									<input type="text" name="txtNombre" class="form-control" 
-									id="nombre" placeholder="Ingrese el nombre de la categoría" 
-									data-parsley-pattern="^[A-zÀ-ú ]+$" data-parsley-length="[2, 30]" 
-									data-parsley-trigger="keyup" required value="<?php echo $carrera->getNombre() ?>">
+    								<input type="text" name="txtNombre" class="form-control" id="nombre" placeholder="Ingrese el nombre de la categoría" data-parsley-pattern="^[A-zÀ-ú ]+$" data-parsley-length="[2, 30]" data-parsley-trigger="keyup" required value="<?php echo $carrera->getNombre() ?>">
     							</div>
     						</div>
 

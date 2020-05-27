@@ -1,14 +1,9 @@
 <div class="container-fluid">
-    <h2 class="mt-4">Productos</h2>
+    <h2 class="mt-4">Estudiantes</h2>
     <div class="row mt-4 mb-4">
         <div class="col-6">
             <div class="text-left">
-                <a href="?controller=Producto&action=registrar" class="btn btn-sm btn-outline-primary"><i class="fa fa-fw fa-plus-circle"></i> Registrar un nuevo producto</a>
-            </div>
-        </div>
-        <div class="col-6">
-            <div class="text-right">
-                <i class="fa fa-fw fa-globe"></i><strong> Buscar un producto</strong>
+                <a href="?controller=Estudiante&action=registrar&id=<?php echo $id?>" class="btn btn-sm btn-outline-primary"><i class="fa fa-fw fa-plus-circle"></i> Registrar un estudiante en la carrera</a>
             </div>
         </div>
     </div>
@@ -37,7 +32,7 @@
                         <td><?php echo $estudiante->getCarrera(); ?></td>
 
                         <td class="actions">
-                            <a href="?controller=Producto&&action=actualizarProducto&&id=<?php echo $producto->getId() ?>" class="edit">
+                            <a href="?controller=Estudiante&&action=actualizarEstudiante&&id=<?php echo $estudiante->getMatricula() ?>" class="edit">
                                 <div class="text-center"><i class="fas fa-pen"></i> Editar</div>
                             </a>
                             <a href="#" class="trash" data-toggle='modal' data-target='#deleteModal'>

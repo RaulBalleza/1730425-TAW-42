@@ -90,13 +90,14 @@ class Estudiante
     }
 
     // Método que recupera los todos registros de la tabla
-    public static function obtenerEstudiantes()
+    public static function obtenerEstudiantes($id)
     {
         $db = Db::getConnect();
         $estudiantes = [];
 
-        $select = $db->query('SELECT matricula,nombre,promedio,edad,id_carrera FROM Estudiantes');
-
+        $select = $db->prepare('SELECT matricula,nombre,promedio,edad,id_carrera FROM Estudiantes WHERE id_carrera=:carrera');
+        $select->bindValue('carrera', $id);
+        $select->execute();
         foreach ($select->fetchAll() as $estudiante) {
             $estudiantes[] = new Estudiante($estudiante['matricula'], $estudiante['nombre'], $estudiante['promedio'], $estudiante['edad'], $estudiante['id_carrera']);
         }
@@ -105,30 +106,34 @@ class Estudiante
     }
 
     // Método que recupera únicamente un registro de la tabla
-    public static function obtenerUniversidad($matricula)
+    public static function obtenerEstudiante($matricula)
     {
         $db = Db::getConnect();
-        $select = $db->prepare('SELECT matricula, nombre FROM Universidades WHERE matricula=:matricula');
+        $select = $db->prepare('SELECT matricula,nombre, promedio, edad, id_carrera FROM Estudiantes WHERE matricula=:matricula');
 
         $select->bindValue('matricula', $matricula);
+
+
         $select->execute();
 
-        $universidadDb = $select->fetch();
+        $estudianteDb = $select->fetch();
 
-        $universidad = new Universidad($universidadDb['matricula'], $universidadDb['nombre']);
+        $estudiante = new Estudiante($estudianteDb['matricula'], $estudianteDb['nombre'], $estudianteDb['promedio'], $estudianteDb['edad'], $estudianteDb['id_carrera']);
 
-        return $universidad;
+        return $estudiante;
     }
 
     // Método que actualiza la información de una categoría de producto
-    public static function actualizar($universidad)
+    public static function actualizar($estudiante)
     {
         $db = Db::getConnect();
-        $update = $db->prepare('UPDATE Universidades SET nombre=:nombre WHERE matricula=:matricula');
+        $update = $db->prepare('UPDATE Estudiantes SET matricula=:matricula,nombre=:nombre, promedio=:promedio, edad=:edad WHERE matricula=:matricula');
 
-        $update->bindValue('nombre', $universidad->getNombre());
+        $update->bindValue('matricula', $estudiante->getMatricula());
+        $update->bindValue('nombre', $estudiante->getNombre());
+        $update->bindValue('promedio', $estudiante->getPromedio());
+        $update->bindValue('edad', $estudiante->getEdad());
 
-        $update->bindValue('matricula', $universidad->getId());
 
         $update->execute();
     }
