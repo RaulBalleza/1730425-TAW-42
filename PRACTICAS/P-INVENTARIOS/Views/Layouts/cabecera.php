@@ -8,10 +8,10 @@
 
       <?php if (isset($_SESSION["usuario"])) { ?>
         <li class="nav-item">
-          <a class="nav-link" href='?controller=Universidad&action=mostrar'>Universidades</a>
+          <a class="nav-link" href='?controller=Producto&action=mostrar'>Productos</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href='?controller=Universidad&action=mostrar'>Universidades</a>
+          <a class="nav-link" href='?controller=CategoriasProducto&action=mostrar'>Categorias</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href='?controller=Universidad&action=mostrar'>Universidades</a>
@@ -21,7 +21,7 @@
   </div>
 
   <div class="mx-auto order-0">
-    <a class="navbar-brand mx-auto" href="index.php">CRUD de Universidad</a>
+    <a class="navbar-brand mx-auto" href="index.php">CRUD de Inventarios</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse">
       <span class="navbar-toggler-icon"></span>
     </button>

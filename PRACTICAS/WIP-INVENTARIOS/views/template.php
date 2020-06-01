@@ -59,8 +59,8 @@
 
 						<?php 
 							}
-							$mvc = new MvcContrller();
-							$mvc->enalcesPaginaController();
+							$mvc = new MvcController();
+							$mvc->enlacesPaginaController();
 						?>
 					</div>
 				</div>
