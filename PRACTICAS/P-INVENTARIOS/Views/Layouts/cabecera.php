@@ -13,9 +13,6 @@
         <li class="nav-item">
           <a class="nav-link" href='?controller=CategoriasProducto&action=mostrar'>Categorias</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href='?controller=Universidad&action=mostrar'>Universidades</a>
-        </li>
       <?php } ?>
     </ul>
   </div>
