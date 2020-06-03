@@ -17,9 +17,10 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th scope="col">Id</th>
+                    <th scope="col">Codigo</th>
                     <th scope="col">Nombre</th>
                     <th scope="col">Descripción</th>
+                    <th scope="col">Cantidad</th>
                     <th scope="col">Precio de compra</th>
                     <th scope="col">Precio de venta</th>
                     <th scope="col">Categoría</th>
@@ -31,9 +32,10 @@
                 <?php foreach ($productos as $producto) { ?>
 
                     <tr>
-                        <td><?php echo $producto->getId(); ?></td>
+                        <td><?php echo $producto->getCodigo(); ?></td>
                         <td><?php echo $producto->getNombre(); ?></td>
                         <td><?php echo $producto->getDescripcion(); ?></td>
+                        <td><?php echo $producto->getCantidad(); ?></td>
                         <td><?php echo $producto->getPrecioCompra(); ?></td>
                         <td><?php echo $producto->getPrecioVenta(); ?></td>
                         <td><?php echo $producto->getIdCategoria(); ?></td>
