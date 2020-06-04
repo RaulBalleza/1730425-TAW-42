@@ -70,7 +70,7 @@ class Usuario{
     public static function obtener($usuario){
         $db=Db::getConnect();
 
-        $query=$db->prepare('SELECT usuario,email,password,privilegio FROM Usuarios WHERE usuario=:usuario');
+        $query=$db->prepare('SELECT id,usuario,email,password,privilegio FROM Usuarios WHERE usuario=:usuario');
 
         $query->bindValue( 'usuario', $usuario );
         $query->execute();
@@ -79,6 +79,7 @@ class Usuario{
 
         // Arreglo asociativo para guardar y devolver al controlador los datos de la consulta
         $respuesta = array(
+            "id" => $filas['id'],
             "usuario" => $filas['usuario'],
             "email" => $filas['email'],
             "email" => $filas['privilegio']
