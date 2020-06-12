@@ -2,7 +2,9 @@
 	<div class="container-fluid">
 		<div class="jumbotron">
 			<h1>Bienvenido</h1>
-			<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Earum nobis eaque vero aperiam sed libero consequuntur, minus tenetur eveniet, possimus, error facilis laudantium quis delectus corrupti mollitia exercitationem autem assumenda.</p>
+			<h2>Claves de Acceso:</h2>
+			<p>Usuario: root</p>
+			<p>Contraseña: root</p>
 
             <?php if ( isset($_SESSION["usuario"]) ) { ?>
 

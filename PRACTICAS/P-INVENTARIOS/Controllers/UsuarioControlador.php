@@ -12,6 +12,32 @@ class UsuarioControlador
     require_once('Views/Usuarios/login.php');
   }
 
+  function mostrar(){
+    $usuarios = Usuario::obtenerUsuarios();
+
+    require_once('Views/Usuarios/mostrar.php');
+  }
+
+  function registrar(){
+
+    require_once('Views/Usuarios/registrar.php');
+  }
+
+  function guardar(){
+    //$producto= new Producto( null, $_POST['txtCodigo'],$_POST['txtNombre'], $_POST['txtDescripcion'],$_POST['txtCantidad'], $_POST['txtCompra'], $_POST['txtVenta'], $_POST['txtCategoria'] );
+    $usuario = new Usuario(null,$_POST['txtUsuario'],$_POST['txtEmail'],$_POST['txtContrasena'],1);
+    Usuario::registrar($usuario);
+  }
+
+  function actualizarUsuario(){
+		$id = $_GET['id']; // Obtiene el id extraído de la url a través del método GET
+    $usuario =  Usuario::obtenerUsuario($id);
+
+    // Llama a la vista actualizar con los datos previamente recuperados de la instancia en cuestión
+    require_once('Views/Usuarios/actualizar.php');
+  }
+
+
   // Envia a la vista de bienvenida
   function bienvenido()
   {

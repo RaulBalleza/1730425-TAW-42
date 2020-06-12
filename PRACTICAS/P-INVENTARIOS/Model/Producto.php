@@ -182,6 +182,12 @@ class Producto
     $update->bindValue('id', $producto->getId());
 
     $update->execute();
+
+    $insert = $db->prepare('INSERT INTO Historial (id_producto,id_usuario,referencia,cantidad) VALUES (:id_producto,1,:referencia,:cantidad)');
+    $insert->bindValue('id_producto', $producto->getId());
+    $insert->bindValue('referencia', "REF0".$producto->getId().$producto->getCantidad().$producto->getCodigo());
+    $insert->bindValue('cantidad', $producto->getId());
+    $insert->execute();
   }
 
   // Método que elimina el registro de una categoría de producto

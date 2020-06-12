@@ -1,13 +1,15 @@
 <?php 
 class Usuario{
     // Atributos de la clase
+    private $id;
     private $usuario;
     private $email;
     private $password;
     private $privilegio;
 
     // Constructor
-    function __construct($usuario, $email, $password, $privilegio){
+    function __construct($id,$usuario, $email, $password, $privilegio){
+        $this->setId($id);
         $this->setUsuario($usuario);
         $this->setEmail($email);
         $this->setPassword($password);
@@ -15,6 +17,10 @@ class Usuario{
     }
 
     // Métodos accesores
+    public function getId(){
+        return $this->id;
+    }
+
     public function getUsuario(){
         return $this->usuario;
     }
@@ -32,6 +38,10 @@ class Usuario{
     }
 
     // Métodos modificadores
+    public function setId($id){
+        $this->id = $id;
+    }
+
     public function setUsuario($usuario){
         $this->usuario = $usuario;
     }
@@ -87,5 +97,47 @@ class Usuario{
 
         return $respuesta;
     }
+
+    public static function registrar($usuario)
+  {
+    $db = Db::getConnect();
+
+    $insert = $db->prepare('INSERT INTO Usuarios (usuario,password,email,privilegio) VALUES (:usuario,:password,:email,:privilegio)');
+
+    $insert->bindValue('usuario', $usuario->getUsuario());
+    $insert->bindValue('password', $usuario->getPassword());
+    $insert->bindValue('email', $usuario->getEmail());
+    $insert->bindValue('privilegio', $usuario->getPrivilegio());
+
+    $insert->execute();
+  }
+
+    public static function obtenerUsuarios()
+  {
+    $db = Db::getConnect();
+    $productos = [];
+
+    $select = $db->query('SELECT * FROM Usuarios');
+
+    foreach ($select->fetchAll() as $usuario) {
+      $usuarios[] = new Usuario($usuario['id'],$usuario['usuario'],$usuario['email'], $usuario['password'],$usuario['privilegio']);
+    }
+
+    return $usuarios;
+  }
+
+  // Método que recupera únicamente un registro de la tabla
+  public static function obtenerUsuario($id)
+  {
+    $db = Db::getConnect();
+    $select = $db->prepare('SELECT * FROM Usuarios WHERE id=:id');
+
+    $select->bindValue('id', $id);
+    $select->execute();
+
+    $usuarioDb = $select->fetch();
+
+    $usuario = new Usuario($usuarioDb['id'],$usuarioDb['usuario'],$usuarioDb['email'], $usuarioDb['password'],$usuarioDb['privilegio']);
+    return $usuario;
+  }
 }
-?>

@@ -35,6 +35,13 @@
     								<label for="descripcion">Descripción</label>
     								<input type="text" name="txtDescripcion" class="form-control" id="descripcion" placeholder="Descripción del producto" data-parsley-pattern="^[A-zÀ-ú ]+$" data-parsley-length="[2, 120]" data-parsley-trigger="keyup" required value="<?php echo $producto->getDescripcion() ?>">
     							</div>
+								<div class="form-group col-md-4">
+    								<label for="cantidad">Cantidad</label><label class="text-danger">*</label>
+    								<div class="input-group">
+    									<input value="<?php echo $producto->getCantidad() ?>" type="number" name="txtCantidad" class="form-control" id="cantidad" data-parsley-length="[1, 8]" data-parsley-trigger="keyup" data-parsley-errors-container="#help-venta" required>
+    								</div>
+    								<span id="help-venta"></span>
+    							</div>
     						</div>
 
     						<div class="form-row">

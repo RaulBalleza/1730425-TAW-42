@@ -7,7 +7,7 @@
 // Se inicializa un arreglo para los controladores que disponemos
 $controllers=array(
 	// 'Alumno'=>['index','register','save','show','updateshow','update','delete','search','error'],
-	'Usuario'=>['login','iniciar','logout'],
+	'Usuario'=>['mostrar','registrar','guardar','actualizarUsuario','actualizar','eliminar','login','iniciar','logout'],
 	'Producto'=>['mostrar','registrar','guardar','actualizarProducto','actualizar','eliminar'],
 	'CategoriasProducto'=>['mostrar','registrar','guardar','actualizarCategoria','actualizar','eliminar'],
 	'Fabricante'=>['mostrar','registrar','guardar','actualizarFabricante','actualizar','eliminar'],
