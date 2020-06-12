@@ -9,9 +9,7 @@ $controllers=array(
 	// 'Alumno'=>['index','register','save','show','updateshow','update','delete','search','error'],
 	'Usuario'=>['mostrar','registrar','guardar','actualizarUsuario','actualizar','eliminar','login','iniciar','logout'],
 	'Producto'=>['mostrar','registrar','guardar','actualizarProducto','actualizar','eliminar'],
-	'CategoriasProducto'=>['mostrar','registrar','guardar','actualizarCategoria','actualizar','eliminar'],
-	'Fabricante'=>['mostrar','registrar','guardar','actualizarFabricante','actualizar','eliminar'],
-	'CategoriasFabricante'=>['mostrar','registrar','guardar','actualizarCategoria','actualizar','eliminar'],
+	'CategoriasProducto'=>['mostrar','registrar','guardar','actualizarCategoria','actualizar','eliminar']
 );
 
 if ( array_key_exists($controller,  $controllers) ) {
@@ -40,29 +38,9 @@ function call($controller, $action){
 			require_once('Model/Producto.php');
 			$controller= new ProductoControlador();
 		break;
-		case 'Fabricante':
-			require_once('Model/Fabricante.php');
-			$controller= new FabricanteControlador();
-		break;
 		case 'CategoriasProducto':
 			require_once('Model/CategoriasProducto.php');
 			$controller= new CategoriasProductoControlador();
-		break;
-		case 'CategoriasFabricante':
-			require_once('Model/CategoriasFabricante.php');
-			$controller= new CategoriasFabricanteControlador();
-		break;
-		case  'Estudiante':
-			require_once('Model/Estudiante.php');
-			$controller= new EstudianteControlador();
-		break;
-		case  'Universidad':
-			require_once('Model/Universidad.php');
-			$controller= new UniversidadControlador();
-		break;
-		case  'Carrera':
-			require_once('Model/Carrera.php');
-			$controller= new CarreraControlador();
 		break;
 		default:
 			// Code ... 
