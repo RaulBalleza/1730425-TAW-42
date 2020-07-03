@@ -14,30 +14,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('layout.app');
-});
-/*
-Route::get('/productos', function () {
-    return 'productos';
+    return view('welcome');
 });
 
-Route::post('/productos', function () {
-    return 'productos (post)';
-});
+Route::resource('empleados', 'EmpleadoController');
+Route::resource('departamentos', 'DepartamentoController');
 
-Route::put('/productos{id}', function($id){
-	return ('actualizando producto: ' . $id);
-});
 
-Route::get('saludo/{nombre}/{apodo?}', function($nombre, $apodo=null){
-	//Poner la primera letra en mayuscula
-	$nombre = ucfirst($nombre);
-	if ($apodo) {
-		return "Bienvenido {$nombre}, tu apodo es {$apodo}";
-	} else {
-		return "Buenvenido {$nombre}";
-	}
-});
-*/
+Auth::routes();
 
-Route::resource('empleados', 'EmpleadosController');
+Route::get('/home', 'HomeController@index')->name('home');

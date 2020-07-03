@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <!-- Meta, title, CSS, favicons, etc. -->
@@ -50,84 +51,80 @@
   <link href="{{ asset('css/jqvmap.min.css') }}" rel="stylesheet">
   <!-- bootstrap-progressbar -->
   <link href="{{ asset('css/bootstrap-progressbar-3.3.4.min.css') }}" rel="stylesheet">
-
-  <!-- jQuery -->
-  <script src="{{ asset('js/jquery.min.js') }}"></script>
 </head>
+
+<script src="{{ asset('js/jquery-3.4.1.min.js') }}"></script>
 
 
 <body class="nav-md">
-  <div class="container body">
-      <div class="main_container">
-          <div class="col-md-3 left_col menu_fixed">
-              <div class="left_col scroll_view">
-                  <div class="navbar nav_title" style="border: 0;">
-                      <a href="{{ url('/') }}" class="site_tittle"><span style="font-size: 19px;">Sistema de control de empleados</span></a>
-                  </div>
-                  <div class="clearfix"></div>
-              </div>
+    <div class="container body">
+        <div class="main_container">
+            <div class="col-md-3 left_col menu_fixed">
+                <div class="left_col scroll-view">
+                    <div class="navbar nav_title" style="border: 0;">
+                        <a href="{{url('/')}}" class="site_title"><span style="font_size: 19px;">Sistema control de empleados</span></a>
+                    </div>
+                    <div class="clearfix"></div>
+                    <br/>
 
-              <br/>
-
-              <!-- Side menu bar-->
-
-              <div id="sidebar-menu" class="main_manu_side hidden-print main_menu">
-                  <div class="menu_section">
-                      <h3>Menu</h3>
-                      <ul> 
-                          <li><a href="{{ url('dashboard') }}">Inicio</a></li>
-                      </ul>
-
-                      <ul>
-                          <li><a><i class="fas fa-user-shield"></i>&nbsp;&nbsp;&nbsp;&nbsp;Empleados <span style="float: right;" class="fa fa-chevron-down"></span></a>
-                            <ul class="nav child_menu">
-                                <li><a href="{{ url('empleados/create') }}">Agregar empleado</a></li>
-                                <li><a href="{{ url('empleados') }}">Consultar empleado</a></li>
+                    <!--Sidebar menu-->
+                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                        <div class="menu_section">
+                            <h3>Menu</h3>
+                            <ul class="nav side-menu">
+                                <li><a href="{{url('empleados')}}">Inicio</a></li>
                             </ul>
-                          </li>
-                      </ul>
-                  </div>
-              </div>
+                            <ul class="nav side-menu">
+                                <li><a><i class="fas fa-user-shield"></i>&nbsp;&nbsp;&nbsp;&nbsp;Empleados<span style="float: right" class="fas fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li><a href="{{url('empleados/create')}}">Agregar Empledado</a></li>
+                                        <li><a href="{{url('empleados')}}">Consultar Empledados</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <ul class="nav side-menu">
+                                <li><a><i class="fas fa-user-shield"></i>&nbsp;&nbsp;&nbsp;&nbsp;Departamentos<span style="float: right" class="fas fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li><a href="{{url('departamentos/create')}}">Agregar Departamento</a></li>
+                                        <li><a href="{{url('departamentos')}}">Consultar Departamentos</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--Sidebar menu-->
+                    <!--Menu footer buttons--->
+                    <div class="sidebar-footer hidden-small">
+                        <a data-toggle="tooltip" data-placement="top">
+                            <span class="glyphicon" aria-hidden="true"></span>
+                        </a>
+                        <a data-toggle="tooltip" data-placement="top">
+                            <span class="glyphicon" aria-hidden="true"></span>
+                        </a>
+                        <a href="/password" data-toggle="tooltip" data-placement="top">
+                            <i class="fas fa-key"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
 
-              <!-- Side bar menu-->
-
-              <!-- /menu footer buttons-->
-
-              <div class="sidebar-footer hidden-small">
-                  <a data-toggle="tooltip" data-placement="top">
-                      <span class="glyphicon" arian-hidden="true"></span>
-                  </a>
-                  <a data-toggle="tooltip" data-placement="top">
-                      <span class="glyphicon" arian-hidden="true"></span>
-                  </a>
-                  <a href="/password" data-toggle="tooltip" data-placement="top">
-                      <i class="fas fa-key"></i>
-                  </a>
-              </div>
-          </div>
-      </div>
-
-      @yield('contenido')
-
-      @yield('scripts')
-
-      <footer>
-          <div class="pull-right">
-              
-          </div>
-          <div class="clearfix">
-              
-          </div>
-      </footer>
-  </div>
-  <!--@include('sweetalert::alert')-->
+            <!--Muestra el contenido de la seecion contnido-->
+            @yield('contenido')
+            @yield('scripts')
+            <!--/page content-->
+            <!--foote content-->
+            <footer>
+                <div class="pull-right">
+                </div>
+                <div class=clearfix></div>
+            </footer>
+        </div>
+    </div>
 </body>
 </html>
 
-
-
-
-
+<!-- jQuery -->
+<script src="{{ asset('js/jquery.min.js') }}"></script>
 <!-- Bootstrap -->
 <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
 <!-- FastClick -->
@@ -198,8 +195,6 @@
 <script src="{{ asset('js/dropzone.min.js') }}"></script>
 <!-- Select Picker -->
 <script src="{{ asset('js/bootstrap-select.min.js') }}"></script>
-<!-- Sweet Alert -->
-<script src="{{ asset('js/sweetalert2.all.js') }}"></script>
 <!-- Datatables -->
 <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('js/dataTables.bootstrap.min.js') }}"></script>

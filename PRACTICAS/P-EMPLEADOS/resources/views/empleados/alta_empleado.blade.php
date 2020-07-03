@@ -1,5 +1,5 @@
-@extends('layout.patron');
-@section ('titulo', 'Agregar de empleado');
+@extends('layout.patron')
+@section ('titulo', 'Agregar de empleado')
 @section ('contenido')
     <div class="righ_col" role="main">
             <div class="">
@@ -54,24 +54,17 @@
                         </div>
                     </div>
                     <div class="item form-group">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="lugar_nacimiento"> Lugar de nacimiento <spam class="required">*</spam>
-                        </label>
-                        <div class="col-md-6 col-sm-6">
-                            <input type="text" id="lugar_nacimiento" name="lugar_nacimiento" required="required" class="form-control">
-                        </div>
-                    </div>
-                    <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" >Sexo</label>
                             <div class="col-md-6 col-sm-6 ">
                                 <div id="sexo" class="btn-group" data-toggle="buttons">
                                     <label class="btn btn-secondary" data-toggle-class="btn-primary" for="sexo" data-toggle-passive-class="btn-default">
-                                        <input type="radio" value="0" name="sexo" id="masculino" class=""> &nbsp; Masculino &nbsp;
+                                        <input type="radio" value="masculino" name="sexo" id="masculino" class=""> Masculino
                                     </label>
                                     <label class="btn btn-primary" data-toggle-class="btn-primary" for="sexo" data-toggle-passive-class="btn-default">
-                                        <input type="radio" value="0" name="sexo" id="femenino"  class=""> Femenino
+                                        <input type="radio" value="femenino" name="sexo" id="femenino"  class=""> Femenino
                                     </label>
                                     <label class="btn btn-primary" data-toggle-class="btn-primary" for="sexo" data-toggle-passive-class="btn-default">
-                                        <input type="radio" value="0" name="sexo" id="no-definido"  class=""> No definido
+                                        <input type="radio" value="no definido" name="sexo" id="no-definido"  class=""> No definido
                                     </label>
                                 </div>
                             </div>
@@ -82,13 +75,10 @@
                             <div class="col-md-6 col-sm-6 ">
                                 <div id="estado_civil" class="btn-group" data-toggle="buttons">
                                     <label class="btn btn-secondary" data-toggle-class="btn-primary" for="estado_civil" data-toggle-passive-class="btn-default">
-                                        <input type="radio" value="0" name="estado_civil" id="soltero" class=""> &nbsp; Soltero &nbsp;
+                                        <input type="radio" value="soltero" name="estado_civil" id="soltero" class=""> Soltero
                                     </label>
                                     <label class="btn btn-primary" data-toggle-class="btn-primary" for="estado_civil" data-toggle-passive-class="btn-default">
-                                        <input type="radio" value="0" name="estado_civil" id="casado"  class=""> Casado
-                                    </label>
-                                    <label class="btn btn-primary" data-toggle-class="btn-primary" for="estado_civil" data-toggle-passive-class="btn-default">
-                                        <input type="radio" value="0" name="estado_civil" id="no-definido"  class=""> No definido
+                                        <input type="radio" value="casado" name="estado_civil" id="casado"  class=""> Casado
                                     </label>
                                 </div>
                             </div>
@@ -99,6 +89,17 @@
                         </label>
                         <div class="col-md-6 col-sm-6">
                             <input type="text" id="telefono" name="telefono" required="required" class="form-control">
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="id_departamento"> Departamento <spam class="required">*</spam>
+                        </label>
+                        <div class="col-md-6 col-sm-6">
+                            <select id="id_departamento" name="id_departamento" required="required" class="form-control">
+                                @foreach($departamentos as $departamento)
+                                <option value="{{$departamento->id}}">{{$departamento->nombre}}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <div class="In_solid"></div>
