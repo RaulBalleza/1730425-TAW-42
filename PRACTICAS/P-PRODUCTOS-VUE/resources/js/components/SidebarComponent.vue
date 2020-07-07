@@ -1,3 +1,6 @@
+<!--SidebarComponent 
+El sidebar izqquierdo transformado en componente
+-->
 <template>
     <div class="sidebar">
                 <nav class="sidebar-nav">

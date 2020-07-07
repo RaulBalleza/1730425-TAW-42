@@ -13,8 +13,10 @@ class ProductoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {   
+        //Consulta todos los registros de la tabla productos
         $productos = Producto::all();
+        //Regresa la variable, SIN vista para usarla como api endpoint
         return $productos;
     }
 
@@ -41,8 +43,9 @@ class ProductoController extends Controller
         $producto->descripcion = $request->descripcion;
         
         $producto->save();*/
-        $departamento = request()->except('_token');
-        Producto::insert($departamento);
+        //Recibe un request e inserta los datos en la tabla productos
+        $producto = request()->except('_token');
+        Producto::insert($producto);
     }
 
     /**

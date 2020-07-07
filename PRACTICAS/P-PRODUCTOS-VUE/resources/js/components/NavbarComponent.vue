@@ -1,3 +1,6 @@
+<!--NavbarComponent 
+El navbar superior transformado en componente
+-->
 <template>
 <header class="app-header navbar">
         <button class="navbar-toggler mobile-sidebar-toggler d-lg-none mr-auto" type="button">

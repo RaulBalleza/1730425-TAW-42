@@ -1,7 +1,10 @@
+<!--FooterComponent 
+Un simple footer que se puede insertar como etiqueta html
+-->
 <template>
     <footer class="app-footer">
-        <span><a href="http://www.damtec.mx/">DAMTEC</a> &copy; 2020</span>
-        <span class="ml-auto">Desarrollado por <a href="http://www.damtec.mx/">marioRC</a></span>
+        <span><a href="#">UPV</a> &copy; 2020</span>
+        <span class="ml-auto">Desarrollado por <a href="">Raul Balleza</a></span>
     </footer>
 </template>
 

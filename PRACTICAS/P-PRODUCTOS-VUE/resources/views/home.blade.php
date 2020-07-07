@@ -8,6 +8,9 @@
         <li class="breadcrumb-item active">Dashboard</li>
     </ol>
     <div class="container-fluid">
+    <!--
+        Usando el componente de la lista, de esta forma se invoca en el HTML
+    -->
         <lista-component></lista-component>
     </div>
 </div>

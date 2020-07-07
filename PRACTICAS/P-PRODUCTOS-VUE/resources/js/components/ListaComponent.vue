@@ -1,3 +1,7 @@
+<!--ListaComponent
+Aqui está la tabla donde se van a ver los productos, tambien el modal de agregar producto, se pusieron en el mismo
+componente para que la tabla se pueda actualizar el insertar un nuevo registro sin tener que actualizar la pagina
+-->
 <template>
 <div>
 <div>
@@ -33,8 +37,14 @@
                     </thead>
                     <tbody>
                         <tr v-for="producto in arrayProductos" :key="producto.id">
-                            
+                            <!--v-for
+                                Funciona como un ciclo foreach de toa la vida y el key es para saber en que producto vamos
+                            -->
                             <td v-text="producto.nombre"></td>
+                            <!--v-text 
+                                se le asigna una variable de vue, en este caso la que usamos en v-for y se accede a sus atributos por medio el punto
+                                aqui se pone el nombre del producto dentro de la etiqueda <td>
+                            -->
                             <td v-text="producto.descripcion"></td>
                             <td>
                                 <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalNuevo">
@@ -103,6 +113,9 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 <button type="button" @click="saveProductos()" class="btn btn-primary">Guardar</button>
+                <!--@click="funcion()"
+                    Manda a llamar una funcion declarada en el <script>, este caso la de guardar el producto
+                -->
 
             </div>
         </div>
@@ -124,15 +137,15 @@
             return{
                 nombre:"", //Esta variable, mediante v-model esta relacionada con el input del formulario
                 descripcion:"", //Esta variable, mediante v-model esta relacionada con el input del formulario
-                update:0, /*Esta variable contrarolará cuando es una nueva tarea o una modificación, si es 0 significará que no hemos seleccionado
-                          ninguna tarea, pero si es diferente de 0 entonces tendrá el id de la tarea y no mostrará el boton guardar sino el modificar*/
-                arrayProductos:[], //Este array contendrá las tareas de nuestra bd
+                update:0, /*Esta variable contrarolará cuando es una nueva producto o una modificación, si es 0 significará que no hemos seleccionado
+                          ninguna producto, pero si es diferente de 0 entonces tendrá el id de la producto y no mostrará el boton guardar sino el modificar*/
+                arrayProductos:[], //Este array contendrá las productos de nuestra bd
             }
         },
         methods:{
             getProductos(){
                 let me =this;
-                let url = '/productos' //Ruta que hemos creado para que nos devuelva todas las tareas
+                let url = '/productos' //Ruta que hemos creado para que nos devuelva todos los productos
                 axios.get(url).then(function (response) {
                     //creamos un array y guardamos el contenido que nos devuelve el response
                     me.arrayProductos = response.data;
@@ -143,8 +156,8 @@
                 });
             },saveProductos(){
                 let me =this;
-                let url = '/productos' //Ruta que hemos creado para enviar una tarea y guardarla
-                axios.post(url,{ //estas variables son las que enviaremos para que crear la tarea
+                let url = '/productos' //Ruta que hemos creado para enviar una producto y guardarla
+                axios.post(url,{ //estas variables son las que enviaremos para que crear la producto
                     'nombre':this.nombre,
                     'descripcion':this.descripcion,
                 }).then(function (response) {

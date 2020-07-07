@@ -27,15 +27,24 @@
 
 <body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
     
-    <div id="app">
+    <div id="app">+
+    <!--
+        Usando el componente del navbar, de esta forma se invoca en el HTML
+    -->
     <navbar-component></navbar-component>
         <div class="app-body">
+        <!--
+        Usando el componente del sidebar, de esta forma se invoca en el HTML
+    -->
             <sidebar-component></sidebar-component>
             <main class="main">
                 @yield('content')
             </main>
         </div>
     </div>
+    <!--
+        Usando el componente del footer, de esta forma se invoca en el HTML
+    -->
     <footer-component></footer-component>
 
     <!-- Bootstrap and necessary plugins -->

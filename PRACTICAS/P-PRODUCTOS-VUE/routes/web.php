@@ -16,7 +16,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+//Para consultar las rutas existentes se usa 'php artisan route:list'
 
+//Esto registra todas las funciones de ProductoController como rutas que se pueden acceder, 
+//solo si usamos la opcion --resource al crear el controlador
 Route::resource('productos', 'ProductoController');
 
 
