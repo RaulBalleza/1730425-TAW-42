@@ -15,8 +15,11 @@ class CreateMicrositiosTable extends Migration
     {
         Schema::create('micrositios', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_cliente');
-            $table->foreign('id_cliente')->references('id')->on('clientes');
+            $table->string('nombre');
+            $table->string('direccion');
+            $table->string('descripcion');
+            /*$table->unsignedBigInteger('id_cliente');
+            $table->foreign('id_cliente')->references('id')->on('clientes');*/
             $table->timestamps();
         });
     }

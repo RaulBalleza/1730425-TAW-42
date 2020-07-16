@@ -19,6 +19,10 @@ class CreateProductsTable extends Migration
             $table->foreign('id_micrositio')->references('id')->on('micrositios');
             $table->string("nombre");
             $table->string("descripcion");
+            $table->integer('stock');
+            $table->decimal("costo");
+            $table->decimal('precio');
+            $table->string('estado');
             $table->timestamps();   
         });
     }

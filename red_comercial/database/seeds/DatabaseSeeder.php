@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
             $this->call('PermissionsTableSeeder');
             $this->call('RolesTableSeeder');
             $this->call('ConnectRelationshipsSeeder');
-            //$this->call('UsersTableSeeder');
+            $this->call('UsersTableSeeder');
 
         Model::reguard();
     }

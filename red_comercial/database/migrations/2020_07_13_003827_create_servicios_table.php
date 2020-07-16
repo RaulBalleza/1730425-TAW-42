@@ -17,6 +17,10 @@ class CreateServiciosTable extends Migration
             $table->id();
             $table->unsignedBigInteger('id_micrositio');
             $table->foreign('id_micrositio')->references('id')->on('micrositios');
+            $table->string('nombre');
+            $table->string('descripcion');
+            $table->decimal('precio');
+            $table->string('estado');
             $table->timestamps();
         });
     }

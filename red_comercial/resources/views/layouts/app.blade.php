@@ -9,6 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
@@ -25,9 +26,10 @@
 
 <body id="page-top">
 <!-- Aqui se van a dibujar el app.vue -->
+
     <div id="app">
     </div>
 
 </body>
 
-</html>
+</html> 

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "879d50e0c4d6096a347b17e1a9e52bf0",
+    "content-hash": "509c48ddbd534cbe665fb389ddba6c8e",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1288,6 +1288,46 @@
                 "storage"
             ],
             "time": "2020-05-18T15:13:39+00:00"
+        },
+        {
+            "name": "lummy/laravel-vue-api-crud-generator",
+            "version": "1.1.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/aarondo/laravel-vue-api-crud-generator.git",
+                "reference": "d33d08744d77d6c573fb02c1ca927a9697e241ce"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/aarondo/laravel-vue-api-crud-generator/zipball/d33d08744d77d6c573fb02c1ca927a9697e241ce",
+                "reference": "d33d08744d77d6c573fb02c1ca927a9697e241ce",
+                "shasum": ""
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "lummy\\vueApi\\vueApiServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "lummy\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Aaron Lumsden",
+                    "email": "aaronlumsden@me.com"
+                }
+            ],
+            "description": "Creates a basic skeleton for a CRUD app in both Laravel & Vue.js single file components.",
+            "time": "2020-03-29T15:13:15+00:00"
         },
         {
             "name": "monolog/monolog",

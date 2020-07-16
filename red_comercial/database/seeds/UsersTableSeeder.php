@@ -13,6 +13,8 @@ class UsersTableSeeder extends Seeder
     {
         $userRole = config('roles.models.role')::where('name', '=', 'User')->first();
         $adminRole = config('roles.models.role')::where('name', '=', 'Admin')->first();
+        $clienteRole = config('roles.models.role')::where('name', '=', 'Cliente')->first();
+        $empresaRole = config('roles.models.role')::where('name', '=', 'Empresa')->first();
         $permissions = config('roles.models.permission')::all();
 
         /*
@@ -27,6 +29,32 @@ class UsersTableSeeder extends Seeder
             ]);
 
             $newUser->attachRole($adminRole);
+            foreach ($permissions as $permission) {
+                $newUser->attachPermission($permission);
+            }
+        }
+
+        if (config('roles.models.defaultUser')::where('email', '=', 'cliente@cliente.com')->first() === null) {
+            $newUser = config('roles.models.defaultUser')::create([
+                'name'     => 'Cliente',
+                'email'    => 'cliente@cliente.com',
+                'password' => bcrypt('password'),
+            ]);
+
+            $newUser->attachRole($clienteRole);
+            foreach ($permissions as $permission) {
+                $newUser->attachPermission($permission);
+            }
+        }
+
+        if (config('roles.models.defaultUser')::where('email', '=', 'empresa@empresa.com')->first() === null) {
+            $newUser = config('roles.models.defaultUser')::create([
+                'name'     => 'Empresa',
+                'email'    => 'empresa@empresa.com',
+                'password' => bcrypt('password'),
+            ]);
+
+            $newUser->attachRole($empresaRole);
             foreach ($permissions as $permission) {
                 $newUser->attachPermission($permission);
             }

@@ -1,23 +1,63 @@
 <template>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">Example Component</div>
+  <div class="container">
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Tables</h1>
+    <p class="mb-4">
+      DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the
+      <a
+        target="_blank"
+        href="https://datatables.net"
+      >official DataTables documentation</a>.
+    </p>
 
-                    <div class="card-body">
-                        I'm an example component.
-                    </div>
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead v-for="producto in arrayProductos[0]" :key="producto.id">
+              <tr>
+                <div>
+                  <th v-for="(value, name) in producto" :key="name">
+                    <p v-text="name"></p>
+                  </th>
                 </div>
-            </div>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Office</th>
+                <th>Age</th>
+                <th>Start date</th>
+                <th>Salary</th>
+              </tr>
+            </tfoot>
+            <tbody>
+              <tr v-for="producto in arrayProductos" :key="producto.id">
+                <td v-text="producto.nombre"></td>
+                <td>System Architect</td>
+                <td>Edinburgh</td>
+                <td>61</td>
+                <td>2011/04/25</td>
+                <td>$320,800</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
-    export default {
-        mounted() {
-            console.log('Component mounted.')
-        }
-    }
+export default {
+  mounted() {
+    console.log("Component mounted.");
+  }
+};
 </script>
