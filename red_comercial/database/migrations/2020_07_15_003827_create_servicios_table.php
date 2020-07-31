@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMicrositiosTable extends Migration
+class CreateServiciosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,16 @@ class CreateMicrositiosTable extends Migration
      */
     public function up()
     {
-        Schema::create('micrositios', function (Blueprint $table) {
+        Schema::create('servicios', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('id_micrositio');
+            $table->foreign('id_micrositio')->references('id')->on('micrositios');
+            $table->unsignedBigInteger('id_categoria');
+            $table->foreign('id_categoria')->references('id')->on('categorias');
             $table->string('nombre');
-            $table->string('direccion');
             $table->string('descripcion');
-            $table->string('url');
+            $table->decimal('precio');
             $table->string('estado');
-            /*$table->unsignedBigInteger('id_cliente');
-            $table->foreign('id_cliente')->references('id')->on('clientes');*/
             $table->timestamps();
         });
     }
@@ -33,6 +34,6 @@ class CreateMicrositiosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('micrositios');
+        Schema::dropIfExists('servicios');
     }
 }

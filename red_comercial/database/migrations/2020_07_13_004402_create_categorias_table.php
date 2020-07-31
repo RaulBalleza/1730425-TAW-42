@@ -17,6 +17,7 @@ class CreateCategoriasTable extends Migration
             $table->id();
             $table->unsignedBigInteger('id_micrositio');
             $table->foreign('id_micrositio')->references('id')->on('micrositios');
+            $table->string('nombre');
             $table->timestamps();
         });
     }

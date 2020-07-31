@@ -20,6 +20,8 @@ class MicrositiosController extends Controller
         'nombre' => 'required |max:255 ',
         'direccion' => 'required |max:255 ',
         'descripcion' => 'required |max:255 ',
+        'url' => 'required |max:255 ',
+        'estado' => 'required |max:255 ',
       ],[
         'nombre.required' => 'nombre is a required field.',
         'nombre.max' => 'nombre can only be 255 characters.',
@@ -27,6 +29,10 @@ class MicrositiosController extends Controller
         'direccion.max' => 'direccion can only be 255 characters.',
         'descripcion.required' => 'descripcion is a required field.',
         'descripcion.max' => 'descripcion can only be 255 characters.',
+        'url.required' => 'url is a required field.',
+        'url.max' => 'url can only be 255 characters.',
+        'estado.required' => 'estado is a required field.',
+        'estado.max' => 'estado can only be 255 characters.',
       ]);
 
         $micrositios = Micrositios::create($request->all());    
@@ -39,6 +45,8 @@ class MicrositiosController extends Controller
         'nombre' => 'required |max:255 ',
         'direccion' => 'required |max:255 ',
         'descripcion' => 'required |max:255 ',
+        'url' => 'required |max:255 ',
+        'estado' => 'required |max:255 ',
       ],[
         'nombre.required' => 'nombre is a required field.',
         'nombre.max' => 'nombre can only be 255 characters.',
@@ -46,6 +54,10 @@ class MicrositiosController extends Controller
         'direccion.max' => 'direccion can only be 255 characters.',
         'descripcion.required' => 'descripcion is a required field.',
         'descripcion.max' => 'descripcion can only be 255 characters.',
+        'url.required' => 'url is a required field.',
+        'url.max' => 'url can only be 255 characters.',
+        'estado.required' => 'estado is a required field.',
+        'estado.max' => 'estado can only be 255 characters.',
       ]);
 
         $micrositios = Micrositios::findOrFail($id);

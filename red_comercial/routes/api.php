@@ -49,3 +49,11 @@ Route::get('users/{id}', 'UsersController@get');
 Route::post('users', 'UsersController@create');
 Route::put('users/{id}', 'UsersController@update');
 Route::delete('users/{id}', 'UsersController@delete');
+
+Route::get('categorias', 'CategoriasController@list');
+Route::get('categorias/{id}', 'CategoriasController@get');
+Route::get('/{id}/categorias', 'CategoriasController@listMicrositio');
+Route::post('categorias', 'CategoriasController@create');
+Route::put('categorias/{id}', 'CategoriasController@update');
+Route::delete('categorias/{id}', 'CategoriasController@delete');
+//Borrar de aqui para abajo

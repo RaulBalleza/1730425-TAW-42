@@ -1,9 +1,10 @@
 <template>
-  <div class="ProductSingle">
-    <h1>Update Product</h1>
+  <div class="CategoriaSingle">
+    <h1>Editar Categoria</h1>
 
-    <form @submit.prevent="updateProduct" v-if="loaded">
-      <router-link :to="'/'+form.id_micrositio+'/products/'">Back to productos</router-link>
+    <form @submit.prevent="updateCategoria" v-if="loaded">
+      <router-link :to="'/'+form.id_micrositio+'/categorias'">Regresar a categorias</router-link>
+
       <div class="form-group">
         <input type="hidden" v-model="form.id" />
       </div>
@@ -13,44 +14,9 @@
         <has-error :form="form" field="id_micrositio"></has-error>
       </div>
       <div class="form-group">
-        <label>Categoria</label>
-        <select v-model="form.id_categoria">
-          <option v-for="(opt, index) in categorias" :key="index" :value="opt.id">{{ opt.nombre}}</option>
-        </select>
-        <has-error :form="form" field="id_categoria"></has-error>
-      </div>
-      <div class="form-group">
         <label>nombre</label>
         <input type="text" v-model="form.nombre" maxlength="255" />
         <has-error :form="form" field="nombre"></has-error>
-      </div>
-      <div class="form-group">
-        <label>descripcion</label>
-        <input type="text" v-model="form.descripcion" maxlength="255" />
-        <has-error :form="form" field="descripcion"></has-error>
-      </div>
-      <div class="form-group">
-        <label>stock</label>
-        <input type="number" v-model="form.stock" />
-        <has-error :form="form" field="stock"></has-error>
-      </div>
-      <div class="form-group">
-        <label>costo</label>
-        <input type="number" v-model="form.costo" />
-        <has-error :form="form" field="costo"></has-error>
-      </div>
-      <div class="form-group">
-        <label>precio</label>
-        <input type="number" v-model="form.precio" />
-        <has-error :form="form" field="precio"></has-error>
-      </div>
-      <div class="form-group">
-        <label>estado</label>
-        <select v-model="form.estado" class="form-control">
-          <option value="Activo" selected="selected">Activo</option>
-          <option value="Inactivo">Inactivo</option>
-        </select>
-        <has-error :form="form" field="estado"></has-error>
       </div>
       <div class="form-group">
         <input type="hidden" v-model="form.created_at" />
@@ -61,55 +27,50 @@
 
       <div class="form-group">
         <button
-          class="button"
+          class="btn btn-sm btn-danger"
+          @click.prevent="deleteCategoria"
+        >{{ (form.busy) ? 'Please wait...' : 'Delete'}}</button>
+        <button
+          class="btn btn-sm btn-success"
           type="submit"
           :disabled="form.busy"
           name="button"
         >{{ (form.busy) ? 'Please wait...' : 'Update'}}</button>
-        <button @click.prevent="deleteProduct">{{ (form.busy) ? 'Please wait...' : 'Delete'}}</button>
       </div>
     </form>
 
-    <span v-else>Loading product...</span>
+    <span v-else>Loading categoria...</span>
   </div>
 </template>
 
 <script>
 import { Form, HasError, AlertError } from "vform";
 export default {
-  name: "Product",
+  name: "Categoria",
   components: { HasError },
   data: function () {
     return {
-      categorias: false,
       loaded: false,
       form: new Form({
         id: "",
         id_micrositio: "",
-        id_categoria: "",
         nombre: "",
-        descripcion: "",
-        stock: "",
-        costo: "",
-        precio: "",
-        estado: "",
         created_at: "",
         updated_at: "",
       }),
     };
   },
   created: function () {
-    this.getProduct();
+    this.getCategoria();
   },
   methods: {
-    getProduct: function (Product) {
+    getCategoria: function (Categoria) {
       var that = this;
       this.form
-        .get("/api/products/" + this.$route.params.id)
+        .get("/api/categorias/" + this.$route.params.id)
         .then(function (response) {
           that.form.fill(response.data);
           that.loaded = true;
-          that.listCategorias();
         })
         .catch(function (e) {
           if (e.response && e.response.status == 404) {
@@ -117,28 +78,21 @@ export default {
           }
         });
     },
-    listCategorias: function () {
-      var that = this;
-      var idm = this.form.id_micrositio;
-      this.form.get("/api/" + idm + "/categorias").then(function (response) {
-        that.categorias = response.data;
-      });
-    },
-    updateProduct: function () {
+    updateCategoria: function () {
       var that = this;
       this.form
-        .put("/api/products/" + this.$route.params.id)
+        .put("/api/categorias/" + this.$route.params.id)
         .then(function (response) {
           that.form.fill(response.data);
         });
     },
-    deleteProduct: function () {
+    deleteCategoria: function () {
       var that = this;
       this.form
-        .delete("/api/products/" + this.$route.params.id)
+        .delete("/api/categorias/" + this.$route.params.id)
         .then(function (response) {
           that.form.fill(response.data);
-          that.$router.push("/products");
+          that.$router.push("/categorias");
         });
     },
   },
@@ -146,7 +100,7 @@ export default {
 </script>
 
 <style lang="less">
-.ProductSingle {
+.CategoriaSingle {
   margin: 0 auto;
   width: 700px;
   form {

@@ -6,19 +6,27 @@
 window.Vue = require('vue');
 
 //require('./bootstrap');
-import Home from './components/HomeComponent.vue';
+import Home from './components/ExampleComponent.vue';
+import ExampleComponent from './components/ExampleComponent.vue';
 import GoogleMap from './components/MapsComponent.vue';
+//Vistas de clientes
 import ClientesList from './components/clientes/Clientes-list.vue';
 import ClientesEditar from './components/clientes/Clientes-single.vue';
+//Vistas de micrositios
 import MicrositiosList from './components/micrositios/Micrositios-list.vue';
 import MicrositiosEditar from './components/micrositios/Micrositios-single.vue';
+//Vistas de productos
 import ProductosList from './components/productos/Products-list.vue';
 import ProductosEditar from './components/productos/Products-single.vue';
+//Vistas de servicios
 import ServiciosList from './components/servicios/Servicios-list.vue';
 import ServiciosEditar from './components/servicios/Servicios-single.vue';
-
+//Vistas de usuarios
 import UsersList from './components/users/Users-list.vue';
 import UsersEditar from './components/users/Users-single.vue';
+//Vistas de categorias
+import CategoriasList from './components/categorias/Categorias-list.vue';
+import CategoriasEditar from './components/categorias/Categorias-single.vue';
 
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
@@ -37,6 +45,9 @@ Vue.use(VueGoogleMaps, {
         libraries: "places" // necessary for places input
     }
 });
+
+import Vuetify from 'vuetify';
+Vue.use(Vuetify);
 
 import LoadScript from 'vue-plugin-load-script';
 Vue.use(LoadScript);
@@ -65,6 +76,11 @@ Vue.loadScript("/vendor/jquery/jquery.min.js").then(() => {
     });
 
 const routes = [
+    {
+        name: 'example',
+        path: '/example',
+        component: ExampleComponent
+    },
     {
         name: 'home',
         path: '/home',
@@ -116,9 +132,19 @@ const routes = [
         component: UsersList
     },
     {
-        name: 'serviciosEditar',
+        name: 'usersEditar',
         path: '/user/:id', props: true,
         component: UsersEditar
+    },
+    {
+        name: 'categorias',
+        path: '/:id/categorias/', props: true,
+        component: CategoriasList
+    },
+    {
+        name: 'categoriasEditar',
+        path: '/categoria/:id', props: true,
+        component: CategoriasEditar
     }
 ];
 

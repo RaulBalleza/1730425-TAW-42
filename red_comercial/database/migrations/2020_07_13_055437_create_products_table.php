@@ -17,6 +17,8 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('id_micrositio');
             $table->foreign('id_micrositio')->references('id')->on('micrositios');
+            $table->unsignedBigInteger('id_categoria');
+            $table->foreign('id_categoria')->references('id')->on('categorias');
             $table->string("nombre");
             $table->string("descripcion");
             $table->integer('stock');
