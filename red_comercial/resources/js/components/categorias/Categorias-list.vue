@@ -36,7 +36,7 @@
                 <tbody v-if="categorias.length > 0">
                   <tr v-for="(categoria,index) in categorias" :key="categoria.id">
                     <td>
-                      <router-link :to="'/categoria/'+categoria.id">{{categoria.id}}</router-link>
+                      <router-link :to="'/admin/categoria/'+categoria.id">{{categoria.id}}</router-link>
                     </td>
                     <td>{{categoria.nombre}}</td>
                     <td>
@@ -51,7 +51,7 @@
                           <i class="fas fa-trash"></i>
                           {{ (form.busy) ? 'Please wait...' : 'Delete'}}
                         </button>
-                        <router-link :to="'/categoria/'+categoria.id">
+                        <router-link :to="'/admin/categoria/'+categoria.id">
                           <button
                             class="btn btn-primary btn-sm"
                             type="button"

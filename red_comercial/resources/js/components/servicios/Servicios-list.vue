@@ -43,7 +43,7 @@
                 <tbody v-if="servicios.length > 0">
                   <tr v-for="(servicio,index) in servicios" :key="servicio.id">
                     <td>
-                      <router-link :to="'/servicio/'+servicio.id">{{servicio.id}}</router-link>
+                      <router-link :to="'/admin/servicio/'+servicio.id">{{servicio.id}}</router-link>
                     </td>
                     <td>{{servicio.nombre}}</td>
                     <td>{{servicio.descripcion}}</td>
@@ -62,7 +62,7 @@
                           <i class="fas fa-trash"></i>
                           {{ (form.busy) ? 'Please wait...' : 'Delete'}}
                         </button>
-                        <router-link :to="'/servicio/'+servicio.id">
+                        <router-link :to="'/admin/servicio/'+servicio.id">
                           <button
                             class="btn btn-primary btn-sm"
                             type="button"

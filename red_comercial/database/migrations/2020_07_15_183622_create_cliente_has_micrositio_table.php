@@ -13,8 +13,12 @@ class CreateClienteHasMicrositioTable extends Migration
      */
     public function up()
     {
-        Schema::create('cliente_has_micrositio', function (Blueprint $table) {
+        Schema::create('clientehasmicrositios', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('id_user');
+            $table->foreign('id_user')->references('id')->on('users');
+            $table->unsignedBigInteger('id_micrositio');
+            $table->foreign('id_micrositio')->references('id')->on('micrositios');
             $table->timestamps();
         });
     }

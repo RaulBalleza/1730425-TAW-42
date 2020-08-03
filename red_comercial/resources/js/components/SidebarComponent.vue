@@ -3,15 +3,17 @@
     <!-- Sidebar -->
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-        <div class="sidebar-brand-icon rotate-n-15">
-          <i class="fas fa-laugh-wink"></i>
-        </div>
-        <div class="sidebar-brand-text mx-3">
-          SB Admin
-          <sup>2</sup>
-        </div>
-      </a>
+      <router-link :to="'/admin/home'">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+          <div class="sidebar-brand-icon rotate-n-15">
+            <i class="fas fa-laugh-wink"></i>
+          </div>
+          <div class="sidebar-brand-text mx-3">
+            SB Admin
+            <sup>2</sup>
+          </div>
+        </a>
+      </router-link>
 
       <!-- Divider -->
       <hr class="sidebar-divider my-0" />
@@ -51,9 +53,9 @@
         >
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">CRUD Components:</h6>
-            <a class="collapse-item" href="/users">Usuarios</a>
-            <a class="collapse-item" href="/clientes">Clientes</a>
-            <a class="collapse-item" href="/micrositios">Micrositios</a>
+            <a class="collapse-item" href="/admin/users">Usuarios</a>
+            <a class="collapse-item" href="/admin/clientes">Clientes</a>
+            <a class="collapse-item" href="/admin/micrositios">Micrositios</a>
           </div>
         </div>
       </li>
@@ -157,6 +159,6 @@
 export default {
   mounted() {
     console.log("Component mounted.");
-  }
+  },
 };
 </script>

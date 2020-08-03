@@ -47,7 +47,7 @@
                 <tbody v-if="products.length > 0">
                   <tr v-for="(product,index) in products" :key="product.id">
                     <td>
-                      <router-link :to="'/product/'+product.id">{{product.id}}</router-link>
+                      <router-link :to="'/admin/product/'+product.id">{{product.id}}</router-link>
                     </td>
                     <td>{{product.nombre}}</td>
                     <td>{{product.descripcion}}</td>
@@ -67,7 +67,7 @@
                           <i class="fas fa-trash"></i>
                           {{ (form.busy) ? 'Please wait...' : 'Delete'}}
                         </button>
-                        <router-link :to="'/product/'+product.id">
+                        <router-link :to="'/admin/product/'+product.id">
                           <button
                             class="btn btn-primary btn-sm"
                             type="button"
@@ -95,7 +95,7 @@
 
       <ul v-if="products.length > 0">
         <li v-for="(product,index) in products" :key="product.id">
-          <router-link :to="'/product/'+product.id">
+          <router-link :to="'/admin/product/'+product.id">
             product {{ index }}
             <button
               @click.prevent="deleteProduct(product,index)"

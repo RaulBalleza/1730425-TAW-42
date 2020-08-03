@@ -3,7 +3,7 @@
     <h1>Editar Categoria</h1>
 
     <form @submit.prevent="updateCategoria" v-if="loaded">
-      <router-link :to="'/'+form.id_micrositio+'/categorias'">Regresar a categorias</router-link>
+      <router-link :to="'/admin/'+form.id_micrositio+'/categorias'">Regresar a categorias</router-link>
 
       <div class="form-group">
         <input type="hidden" v-model="form.id" />

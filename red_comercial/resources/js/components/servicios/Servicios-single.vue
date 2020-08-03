@@ -3,7 +3,7 @@
     <h1>Editar Servicio</h1>
 
     <form @submit.prevent="updateServicio" v-if="loaded">
-      <router-link :to="'/'+form.id_micrositio+'/servicios/'">Regresar a servicios</router-link>
+      <router-link :to="'/admin/'+form.id_micrositio+'/servicios/'">Regresar a servicios</router-link>
 
       <div class="form-group">
         <input type="hidden" v-model="form.id" />

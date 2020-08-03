@@ -25,17 +25,8 @@
 </head>
 
 <body id="page-top">
-    <!-- Aqui se van a dibujar el app.vue -->
-    @guest
-    <script>
-        window.location = "/login";
-    </script>
-    @else
-
-    <meta name="user-id" content="{{ Auth::user()->id }}" />
-    <div id="app">
+    <div id="app2">
     </div>
-    @endguest
 
 
 </body>

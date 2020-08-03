@@ -22,6 +22,9 @@ class MicrositiosController extends Controller
         'descripcion' => 'required |max:255 ',
         'url' => 'required |max:255 ',
         'estado' => 'required |max:255 ',
+        'logo' => 'required ',
+        'latitud' => 'required |max:255 ',
+        'longitud' => 'required |max:255 ',
       ],[
         'nombre.required' => 'nombre is a required field.',
         'nombre.max' => 'nombre can only be 255 characters.',
@@ -33,6 +36,11 @@ class MicrositiosController extends Controller
         'url.max' => 'url can only be 255 characters.',
         'estado.required' => 'estado is a required field.',
         'estado.max' => 'estado can only be 255 characters.',
+        'logo.required' => 'logo is a required field.',
+        'latitud.required' => 'latitud is a required field.',
+        'latitud.max' => 'latitud can only be 255 characters.',
+        'longitud.required' => 'longitud is a required field.',
+        'longitud.max' => 'longitud can only be 255 characters.',
       ]);
 
         $micrositios = Micrositios::create($request->all());    
@@ -47,6 +55,9 @@ class MicrositiosController extends Controller
         'descripcion' => 'required |max:255 ',
         'url' => 'required |max:255 ',
         'estado' => 'required |max:255 ',
+        'logo' => 'required ',
+        'latitud' => 'required |max:255 ',
+        'longitud' => 'required |max:255 ',
       ],[
         'nombre.required' => 'nombre is a required field.',
         'nombre.max' => 'nombre can only be 255 characters.',
@@ -58,6 +69,11 @@ class MicrositiosController extends Controller
         'url.max' => 'url can only be 255 characters.',
         'estado.required' => 'estado is a required field.',
         'estado.max' => 'estado can only be 255 characters.',
+        'logo.required' => 'logo is a required field.',
+        'latitud.required' => 'latitud is a required field.',
+        'latitud.max' => 'latitud can only be 255 characters.',
+        'longitud.required' => 'longitud is a required field.',
+        'longitud.max' => 'longitud can only be 255 characters.',
       ]);
 
         $micrositios = Micrositios::findOrFail($id);

@@ -1,112 +1,89 @@
 <template>
-  <v-data-table
-    :headers="headers"
-    :items="desserts"
-    :items-per-page="5"
-    class="elevation-1"
-  ></v-data-table>
+  <div class="container">
+    <div>
+      <h2>Search and add a pin</h2>
+      <label>
+        <gmap-autocomplete @place_changed="setPlace"></gmap-autocomplete>
+        <button @click="addMarker">Add</button>
+      </label>
+      <br />
+    </div>
+    <br />
+    <gmap-map id="g-map" :center="center" :zoom="12" style="width:100%;  height: 400px;">
+      <gmap-marker
+        :key="index"
+        v-for="(m, index) in markers"
+        :position="m.position"
+        @click="center=m.position"
+      ></gmap-marker>
+    </gmap-map>
+  </div>
 </template>
 
 <script>
-  export default {
-    data () {
-      return {
-        headers: [
-          {
-            text: 'Dessert (100g serving)',
-            align: 'start',
-            sortable: false,
-            value: 'name',
-          },
-          { text: 'Calories', value: 'calories' },
-          { text: 'Fat (g)', value: 'fat' },
-          { text: 'Carbs (g)', value: 'carbs' },
-          { text: 'Protein (g)', value: 'protein' },
-          { text: 'Iron (%)', value: 'iron' },
-        ],
-        desserts: [
-          {
-            name: 'Frozen Yogurt',
-            calories: 159,
-            fat: 6.0,
-            carbs: 24,
-            protein: 4.0,
-            iron: '1%',
-          },
-          {
-            name: 'Ice cream sandwich',
-            calories: 237,
-            fat: 9.0,
-            carbs: 37,
-            protein: 4.3,
-            iron: '1%',
-          },
-          {
-            name: 'Eclair',
-            calories: 262,
-            fat: 16.0,
-            carbs: 23,
-            protein: 6.0,
-            iron: '7%',
-          },
-          {
-            name: 'Cupcake',
-            calories: 305,
-            fat: 3.7,
-            carbs: 67,
-            protein: 4.3,
-            iron: '8%',
-          },
-          {
-            name: 'Gingerbread',
-            calories: 356,
-            fat: 16.0,
-            carbs: 49,
-            protein: 3.9,
-            iron: '16%',
-          },
-          {
-            name: 'Jelly bean',
-            calories: 375,
-            fat: 0.0,
-            carbs: 94,
-            protein: 0.0,
-            iron: '0%',
-          },
-          {
-            name: 'Lollipop',
-            calories: 392,
-            fat: 0.2,
-            carbs: 98,
-            protein: 0,
-            iron: '2%',
-          },
-          {
-            name: 'Honeycomb',
-            calories: 408,
-            fat: 3.2,
-            carbs: 87,
-            protein: 6.5,
-            iron: '45%',
-          },
-          {
-            name: 'Donut',
-            calories: 452,
-            fat: 25.0,
-            carbs: 51,
-            protein: 4.9,
-            iron: '22%',
-          },
-          {
-            name: 'KitKat',
-            calories: 518,
-            fat: 26.0,
-            carbs: 65,
-            protein: 7,
-            iron: '6%',
-          },
-        ],
+export default {
+  name: "GoogleMap",
+  data() {
+    return {
+      // default to Montreal to keep it simple
+      // change this to whatever makes sense
+      micrositios: false,
+      loaded: false,
+      center: { lat: 22.7317819, lng: -98.9766827 },
+      markers: [],
+      places: [],
+      currentPlace: null,
+    };
+  },
+
+  mounted() {
+    this.listMicrositios();
+    this.geolocate();
+  },
+
+  methods: {
+    // receives a place object via the autocomplete component
+    initMarkers(lat, long) {
+      const marker = {
+        lat: parseFloat(lat),
+        lng: parseFloat(long),
+      };
+
+      this.markers.push({ position: marker });
+    },
+    listMicrositios() {
+      var that = this;
+      this.axios.get("/api/micrositios").then(function (response) {
+        that.micrositios = response.data;
+        that.micrositios.forEach(function (micrositio) {
+          that.initMarkers(micrositio.latitud, micrositio.longitud);
+        });
+        that.loaded = true;
+      });
+    },
+    setPlace(place) {
+      this.currentPlace = place;
+    },
+    addMarker() {
+      if (this.currentPlace) {
+        const marker = {
+          lat: this.currentPlace.geometry.location.lat(),
+          lng: this.currentPlace.geometry.location.lng(),
+        };
+        this.markers.push({ position: marker });
+        this.places.push(this.currentPlace);
+        this.center = marker;
+        this.currentPlace = null;
       }
     },
-  }
+    geolocate: function () {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.center = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        };
+      });
+    },
+  },
+};
 </script>

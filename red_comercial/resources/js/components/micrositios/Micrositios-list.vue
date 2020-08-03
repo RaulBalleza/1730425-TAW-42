@@ -42,7 +42,7 @@
                 <tbody v-if="micrositios.length > 0">
                   <tr v-for="(micrositio,index) in micrositios" :key="micrositio.id">
                     <td>
-                      <router-link :to="'/micrositio/'+micrositio.id">{{micrositio.id}}</router-link>
+                      <router-link :to="'/admin/micrositio/'+micrositio.id">{{micrositio.id}}</router-link>
                     </td>
                     <td>{{micrositio.nombre}}</td>
                     <td>{{micrositio.descripcion}}</td>
@@ -50,7 +50,18 @@
                     <td>{{micrositio.estado}}</td>
                     <td>
                       <div class="row">
-                        <router-link :to="'/'+micrositio.id+'/servicios'">
+                        <router-link :to="'/micrositio/'+micrositio.id">
+                          <button
+                            class="btn btn-primary btn-sm"
+                            type="button"
+                            :disabled="form.busy"
+                            name="button"
+                          >
+                            <i class="fas fa-edit"></i>
+                            {{ (form.busy) ? 'Please wait...' : 'Ver Sitio'}}
+                          </button>
+                        </router-link>
+                        <router-link :to="'/admin/'+micrositio.id+'/servicios'">
                           <button
                             class="btn btn-warning btn-sm"
                             type="button"
@@ -61,7 +72,7 @@
                             {{ (form.busy) ? 'Please wait...' : 'Ver Servicios'}}
                           </button>
                         </router-link>
-                        <router-link :to="'/'+micrositio.id+'/products'">
+                        <router-link :to="'/admin/'+micrositio.id+'/products'">
                           <button
                             class="btn btn-success btn-sm"
                             type="button"
@@ -72,7 +83,7 @@
                             {{ (form.busy) ? 'Please wait...' : 'Ver Productos'}}
                           </button>
                         </router-link>
-                        <router-link :to="'/'+micrositio.id+'/categorias'">
+                        <router-link :to="'/admin/'+micrositio.id+'/categorias'">
                           <button
                             class="btn btn-info btn-sm"
                             type="button"
@@ -95,7 +106,7 @@
                           <i class="fas fa-trash"></i>
                           {{ (form.busy) ? 'Please wait...' : 'Eliminar'}}
                         </button>
-                        <router-link :to="'/micrositio/'+micrositio.id">
+                        <router-link :to="'/admin/micrositio/'+micrositio.id">
                           <button
                             class="btn btn-primary btn-sm"
                             type="button"
@@ -123,7 +134,7 @@
 
       <ul v-if="micrositios.length > 0">
         <li v-for="(micrositio,index) in micrositios" :key="micrositio.id">
-          <router-link :to="'/micrositio/'+micrositio.id">
+          <router-link :to="'/admin/micrositio/'+micrositio.id">
             micrositio {{ index }}
             <button
               @click.prevent="deleteMicrositio(micrositio,index)"
@@ -190,6 +201,32 @@
                   <has-error :form="form" field="url"></has-error>
                 </div>
                 <div class="form-group">
+                  <label>logo</label>
+                  <input type="number" v-model="form.logo" />
+
+                  <has-error :form="form" field="logo"></has-error>
+                </div>
+                <div class="form-group">
+                  <label>latitud</label>
+                  <input type="text" v-model="form.latitud" maxlength="255" />
+                  <has-error :form="form" field="latitud"></has-error>
+                </div>
+                <div class="form-group">
+                  <label>longitud</label>
+                  <input type="text" v-model="form.longitud" maxlength="255" />
+                  <has-error :form="form" field="longitud"></has-error>
+                </div>
+                <div class="form-group">
+                  <label>latitud</label>
+                  <input type="text" v-model="form.latitud" maxlength="255" />
+                  <has-error :form="form" field="latitud"></has-error>
+                </div>
+                <div class="form-group">
+                  <label>longitud</label>
+                  <input type="text" v-model="form.longitud" maxlength="255" />
+                  <has-error :form="form" field="longitud"></has-error>
+                </div>
+                <div class="form-group">
                   <label>estado</label>
                   <select v-model="form.estado" class="form-control">
                     <option value="Activo" selected="selected">Activo</option>
@@ -228,7 +265,10 @@ export default {
   components: { HasError },
   data: function () {
     return {
+      user_id: false,
+      user_role: false,
       micrositios: false,
+      loaded: false,
       form: new Form({
         id: "",
         nombre: "",
@@ -236,27 +276,72 @@ export default {
         descripcion: "",
         url: "",
         estado: "",
+        logo: "",
+        latitud: "",
+        longitud: "",
         created_at: "",
         updated_at: "",
       }),
     };
   },
   created: function () {
-    this.listMicrositios();
+    this.user_id = document
+      .querySelector('meta[name="user-id"]')
+      .getAttribute("content");
+    this.getuser_role(this.user_id);
   },
   methods: {
+    getuser_role: function (id) {
+      var that = this;
+      this.axios.get("/api/roles/user/" + id).then(function (response) {
+        that.user_role = response.data;
+        that.listMicrositios();
+      });
+    },
     listMicrositios: function () {
       var that = this;
-      this.form.get("/api/micrositios").then(function (response) {
-        that.micrositios = response.data;
-      });
+      if (that.user_role == "Admin") {
+        this.form.get("/api/micrositios").then(function (response) {
+          that.micrositios = response.data;
+          //console.log(that.user_role);
+          that.loaded = true;
+        });
+      } else {
+        this.form
+          .get("/api/micrositios/user/" + that.user_id)
+          .then(function (response) {
+            that.micrositios = response.data;
+            //console.log(that.user_role);
+            that.loaded = true;
+          });
+      }
     },
     createMicrositio: function () {
       var that = this;
       this.form.post("/api/micrositios").then(function (response) {
         that.micrositios.push(response.data);
-        $(":input").val("");
+        that.getLastMicrositioID();
       });
+    },
+    getLastMicrositioID: function () {
+      var that = this;
+      this.axios
+        .get("/api/micrositios/url/" + that.form.url)
+        .then(function (response) {
+          //console.log("RESPUESTA: " + response.data);
+          that.createClientehasmicrositio(response.data);
+        });
+    },
+    createClientehasmicrositio: function (micrositio_id) {
+      var that = this;
+      this.axios
+        .post("/api/clientehasmicrositios", {
+          id_user: that.user_id,
+          id_micrositio: micrositio_id,
+        })
+        .then(function (response) {
+          //console.log(response);
+        });
     },
     deleteMicrositio: function (micrositio, index) {
       var that = this;

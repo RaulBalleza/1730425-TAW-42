@@ -14,14 +14,22 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+  return view('welcome');
+});
+
+Route::get('/browser', function () {
+  return view('layouts.browser');
 });
 
 Auth::routes();
 
 //Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/{any}', function () {
-    return view('layouts.app');
-  })->where('any', '.*');
+Route::get('/admin', function () {
+  return view('layouts.app');
+});
+
+Route::get('/admin/{any}', function () {
+  return view('layouts.app');
+})->where('any', '.*');
 //Route::resource('products', 'ProductController');

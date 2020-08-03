@@ -1,9 +1,9 @@
 <template>
   <div class="ProductSingle">
-    <h1>Update Product</h1>
+    <h1>Editar Producto</h1>
 
     <form @submit.prevent="updateProduct" v-if="loaded">
-      <router-link :to="'/'+form.id_micrositio+'/products/'">Back to productos</router-link>
+      <router-link :to="'/admin/'+form.id_micrositio+'/products/'">Back to productos</router-link>
       <div class="form-group">
         <input type="hidden" v-model="form.id" />
       </div>
@@ -14,7 +14,7 @@
       </div>
       <div class="form-group">
         <label>Categoria</label>
-        <select v-model="form.id_categoria">
+        <select v-model="form.id_categoria" class="form-control">
           <option v-for="(opt, index) in categorias" :key="index" :value="opt.id">{{ opt.nombre}}</option>
         </select>
         <has-error :form="form" field="id_categoria"></has-error>

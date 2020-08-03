@@ -18,8 +18,11 @@ class CreateMicrositiosTable extends Migration
             $table->string('nombre');
             $table->string('direccion');
             $table->string('descripcion');
-            $table->string('url');
+            $table->string('url')->unique();
             $table->string('estado');
+            $table->binary('logo');
+            $table->string('latitud');
+            $table->string('longitud');
             /*$table->unsignedBigInteger('id_cliente');
             $table->foreign('id_cliente')->references('id')->on('clientes');*/
             $table->timestamps();

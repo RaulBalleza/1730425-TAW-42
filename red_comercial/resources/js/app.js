@@ -5,49 +5,21 @@
  */
 window.Vue = require('vue');
 
-//require('./bootstrap');
-import Home from './components/ExampleComponent.vue';
-import ExampleComponent from './components/ExampleComponent.vue';
-import GoogleMap from './components/MapsComponent.vue';
-//Vistas de clientes
-import ClientesList from './components/clientes/Clientes-list.vue';
-import ClientesEditar from './components/clientes/Clientes-single.vue';
-//Vistas de micrositios
-import MicrositiosList from './components/micrositios/Micrositios-list.vue';
-import MicrositiosEditar from './components/micrositios/Micrositios-single.vue';
-//Vistas de productos
-import ProductosList from './components/productos/Products-list.vue';
-import ProductosEditar from './components/productos/Products-single.vue';
-//Vistas de servicios
-import ServiciosList from './components/servicios/Servicios-list.vue';
-import ServiciosEditar from './components/servicios/Servicios-single.vue';
-//Vistas de usuarios
-import UsersList from './components/users/Users-list.vue';
-import UsersEditar from './components/users/Users-single.vue';
-//Vistas de categorias
-import CategoriasList from './components/categorias/Categorias-list.vue';
-import CategoriasEditar from './components/categorias/Categorias-single.vue';
-
-import VueRouter from 'vue-router';
-Vue.use(VueRouter);
-
 import VueAxios from 'vue-axios';
 import axios from 'axios';
 
-import App from './app.vue';
 Vue.use(VueAxios, axios);
+
+const MAPS_API_KEY = "AIzaSyAP7WklFEn9_GJMHto9IGZucRegx9T_Jik";
 
 import * as VueGoogleMaps from "vue2-google-maps";
 
 Vue.use(VueGoogleMaps, {
-    load: {
-        key: "AIzaSyCfYR6KyWS8tA7cZQEa_c2FeamOUHG7j_s",
-        libraries: "places" // necessary for places input
-    }
+  load: {
+    key: MAPS_API_KEY,
+    libraries: "places" // necessary for places input
+  }
 });
-
-import Vuetify from 'vuetify';
-Vue.use(Vuetify);
 
 import LoadScript from 'vue-plugin-load-script';
 Vue.use(LoadScript);
@@ -67,86 +39,15 @@ Vue.loadScript("/vendor/jquery/jquery.min.js").then(() => {
         Vue.loadScript("/vendor/datatables/dataTables.bootstrap4.min.js")
         Vue.loadScript("/js/demo/datatables-demo.js")
     })
-})/*.then(() => {
+}).then(() => {
     Vue.loadScript("https://polyfill.io/v3/polyfill.min.js?features=default")
-    Vue.loadScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyCfYR6KyWS8tA7cZQEa_c2FeamOUHG7j_s&callback=initMap&libraries=&v=weekly")
-})*/
+    //Vue.loadScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyAP7WklFEn9_GJMHto9IGZucRegx9T_Jik&callback=initMap&libraries=&v=weekly")
+    //Vue.loadScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyAP7WklFEn9_GJMHto9IGZucRegx9T_Jik&callback=initMap")
+})
     .catch(() => {
         // Failed to fetch script
     });
 
-const routes = [
-    {
-        name: 'example',
-        path: '/example',
-        component: ExampleComponent
-    },
-    {
-        name: 'home',
-        path: '/home',
-        component: Home
-    },
-    {
-        name: 'clientes',
-        path: '/clientes/', props: true,
-        component: ClientesList
-    },
-    {
-        name: 'clientesEditar',
-        path: '/cliente/:id', props: true,
-        component: ClientesEditar
-    },
-    {
-        name: 'micrositios',
-        path: '/micrositios/', props: true,
-        component: MicrositiosList
-    },
-    {
-        name: 'micrositiosEditar',
-        path: '/micrositio/:id', props: true,
-        component: MicrositiosEditar
-    },
-    {
-        name: 'productos',
-        path: '/:id/products/', props: true,
-        component: ProductosList
-    },
-    {
-        name: 'productosEditar',
-        path: '/product/:id', props: true,
-        component: ProductosEditar
-    },
-    {
-        name: 'servicios',
-        path: '/:id/servicios/', props: true,
-        component: ServiciosList
-    },
-    {
-        name: 'serviciosEditar',
-        path: '/servicio/:id', props: true,
-        component: ServiciosEditar
-    },
-    {
-        name: 'users',
-        path: '/users/', props: true,
-        component: UsersList
-    },
-    {
-        name: 'usersEditar',
-        path: '/user/:id', props: true,
-        component: UsersEditar
-    },
-    {
-        name: 'categorias',
-        path: '/:id/categorias/', props: true,
-        component: CategoriasList
-    },
-    {
-        name: 'categoriasEditar',
-        path: '/categoria/:id', props: true,
-        component: CategoriasEditar
-    }
-];
 
 /**
  * The following block of code may be used to automatically register your
@@ -173,8 +74,19 @@ const app = new Vue({
 });
 */
 
-// DECLARACION DEL MODULO ROUTER CON LAS RUTAS DECLARADAS
-const router = new VueRouter({ mode: 'history', routes: routes });
+import { routes, routesAdmin } from './routes.js';
 
+import VueRouter from 'vue-router';
+Vue.use(VueRouter);
+
+const rutas = routesAdmin.concat(routes);
+// DECLARACION DEL MODULO ROUTER CON LAS RUTAS DECLARADAS
+const router = new VueRouter({ mode: 'history', routes: routesAdmin });
+const router2 = new VueRouter({ mode: 'history', routes: routes });
+
+import App from './app.vue';
+import App2 from './app2.vue';
 // ESTA VARIABLE MONTA LA APLICACION Y HACE REFERENIA AL CONTENEDOR "APP"
 const app = new Vue(Vue.util.extend({ router }, App)).$mount('#app');
+
+const app2 = new Vue(Vue.util.extend({ router: router2 }, App2)).$mount('#app2');

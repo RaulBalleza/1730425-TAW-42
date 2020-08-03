@@ -1,40 +1,22 @@
 <template>
-  <div class="MicrositioSingle">
-    <h1>Editar Micrositio</h1>
+  <div class="ClientehasmicrositioSingle">
+    <h1>Update Clientehasmicrositio</h1>
 
-    <form @submit.prevent="updateMicrositio" v-if="loaded">
-      <router-link to="/admin/micrositios">Regresar a micrositios</router-link>
+    <form @submit.prevent="updateClientehasmicrositio" v-if="loaded">
+      <router-link to="/clientehasmicrositios">Back to clientehasmicrositios</router-link>
 
       <div class="form-group">
         <input type="hidden" v-model="form.id" />
       </div>
       <div class="form-group">
-        <label>nombre</label>
-        <input type="text" v-model="form.nombre" maxlength="255" />
-        <has-error :form="form" field="nombre"></has-error>
+        <label>id_user</label>
+        <input type="number" v-model="form.id_user" />
+        <has-error :form="form" field="id_user"></has-error>
       </div>
       <div class="form-group">
-        <label>direccion</label>
-        <input type="text" v-model="form.direccion" maxlength="255" />
-        <has-error :form="form" field="direccion"></has-error>
-      </div>
-      <div class="form-group">
-        <label>descripcion</label>
-        <input type="text" v-model="form.descripcion" maxlength="255" />
-        <has-error :form="form" field="descripcion"></has-error>
-      </div>
-      <div class="form-group">
-        <label>url</label>
-        <input type="text" v-model="form.url" maxlength="255" />
-        <has-error :form="form" field="url"></has-error>
-      </div>
-      <div class="form-group">
-        <label>estado</label>
-        <select v-model="form.estado" class="form-control">
-          <option value="Activo" selected="selected">Activo</option>
-          <option value="Inactivo">Inactivo</option>
-        </select>
-        <has-error :form="form" field="estado"></has-error>
+        <label>id_micrositio</label>
+        <input type="number" v-model="form.id_micrositio" />
+        <has-error :form="form" field="id_micrositio"></has-error>
       </div>
       <div class="form-group">
         <input type="hidden" v-model="form.created_at" />
@@ -44,51 +26,47 @@
       </div>
 
       <div class="form-group">
-        <button @click.prevent="deleteMicrositio" class="btn btn-danger btn-sm">
-          <i class="fas fa-trash"></i>
-          {{ (form.busy) ? 'Please wait...' : 'Delete'}}
-        </button>
         <button
-          class="btn btn-primary btn-sm"
+          class="button"
           type="submit"
           :disabled="form.busy"
           name="button"
         >{{ (form.busy) ? 'Please wait...' : 'Update'}}</button>
+        <button
+          @click.prevent="deleteClientehasmicrositio"
+        >{{ (form.busy) ? 'Please wait...' : 'Delete'}}</button>
       </div>
     </form>
 
-    <span v-else>Loading micrositio...</span>
+    <span v-else>Loading clientehasmicrositio...</span>
   </div>
 </template>
 
 <script>
 import { Form, HasError, AlertError } from "vform";
 export default {
-  name: "Micrositio",
+  name: "Clientehasmicrositio",
   components: { HasError },
   data: function () {
     return {
       loaded: false,
       form: new Form({
         id: "",
-        nombre: "",
-        direccion: "",
-        descripcion: "",
-        url: "",
-        estado: "",
+        id_user: "",
+        id_micrositio: "",
         created_at: "",
         updated_at: "",
       }),
     };
   },
   created: function () {
-    this.getMicrositio();
+    this.getClientehasmicrositio();
   },
   methods: {
-    getMicrositio: function (Micrositio) {
+    getClientehasmicrositio: function (Clientehasmicrositio) {
       var that = this;
       this.form
-        .get("/api/micrositios/" + this.$route.params.id)
+        .get("/api/clientehasmicrositios/" + this.$route.params.id)
         .then(function (response) {
           that.form.fill(response.data);
           that.loaded = true;
@@ -99,21 +77,21 @@ export default {
           }
         });
     },
-    updateMicrositio: function () {
+    updateClientehasmicrositio: function () {
       var that = this;
       this.form
-        .put("/api/micrositios/" + this.$route.params.id)
+        .put("/api/clientehasmicrositios/" + this.$route.params.id)
         .then(function (response) {
           that.form.fill(response.data);
         });
     },
-    deleteMicrositio: function () {
+    deleteClientehasmicrositio: function () {
       var that = this;
       this.form
-        .delete("/api/micrositios/" + this.$route.params.id)
+        .delete("/api/clientehasmicrositios/" + this.$route.params.id)
         .then(function (response) {
           that.form.fill(response.data);
-          that.$router.push("/micrositios");
+          that.$router.push("/clientehasmicrositios");
         });
     },
   },
@@ -121,7 +99,7 @@ export default {
 </script>
 
 <style lang="less">
-.MicrositioSingle {
+.ClientehasmicrositioSingle {
   margin: 0 auto;
   width: 700px;
   form {
