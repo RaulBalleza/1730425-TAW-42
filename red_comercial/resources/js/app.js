@@ -35,7 +35,6 @@ Vue.loadScript("/vendor/jquery/jquery.min.js").then(() => {
     })
 }).then(() => {
     Vue.loadScript("/vendor/datatables/jquery.dataTables.min.js").then(() => {
-
         Vue.loadScript("/vendor/datatables/dataTables.bootstrap4.min.js")
         Vue.loadScript("/js/demo/datatables-demo.js")
     })
@@ -79,7 +78,6 @@ import { routes, routesAdmin } from './routes.js';
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 
-const rutas = routesAdmin.concat(routes);
 // DECLARACION DEL MODULO ROUTER CON LAS RUTAS DECLARADAS
 const router = new VueRouter({ mode: 'history', routes: routesAdmin });
 const router2 = new VueRouter({ mode: 'history', routes: routes });

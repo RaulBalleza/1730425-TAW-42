@@ -31,7 +31,6 @@
         window.location = "/login";
     </script>
     @else
-
     <meta name="user-id" content="{{ Auth::user()->id }}" />
     <div id="app">
     </div>

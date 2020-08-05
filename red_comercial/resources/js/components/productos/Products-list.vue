@@ -156,7 +156,7 @@
                   Porfavor, registra una categoria antes de registrar un nuevo producto.
                   <router-link
                     target="_blank"
-                    :to="'/'+form.id_micrositio+'/categorias/'"
+                    :to="'/admin/'+form.id_micrositio+'/categorias/'"
                   >Registrala aquí</router-link>
                 </div>
                 <div class="form-group">

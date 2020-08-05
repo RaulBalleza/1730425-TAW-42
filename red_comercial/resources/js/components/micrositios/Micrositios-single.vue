@@ -1,90 +1,129 @@
-<template>
-  <div class="MicrositioSingle">
-    <h1>Editar Micrositio</h1>
+        <template>
+      <div class="MicrositioSingle">
+        <h1>Update Micrositio</h1>
+        <div v-if="loaded">
+        <form @submit.prevent="updateMicrositio" >
+          
+          <router-link to="/micrositios">< Back to micrositios</router-link>
+          
+            <div class="form-group">
+   
+                  <input type="hidden" v-model="form.id"></input>
+            </div>
+            <div class="form-group">
+                  <label>nombre</label>
+                  <input type="text" v-model="form.nombre"  maxlength="255" ></input>
+                  <has-error :form="form" field="nombre"></has-error>
+            </div>
+            <div class="form-group">
+                  <label>direccion</label>
+                  <input type="text" v-model="form.direccion"  maxlength="255" ></input>
+                  <has-error :form="form" field="direccion"></has-error>
+            </div>
+            <div class="form-group">
+                  <label>descripcion</label>
+                  <input type="text" v-model="form.descripcion"  maxlength="255" ></input>
+                  <has-error :form="form" field="descripcion"></has-error>
+            </div>
+            <div class="form-group">
+                  <label>url</label>
+                  <input type="text" v-model="form.url"  maxlength="255" ></input>
+                  <has-error :form="form" field="url"></has-error>
+            </div>
+            <div class="form-group">
+                  <label>estado</label>
+                  <input type="text" v-model="form.estado"  maxlength="255" ></input>
+                  <has-error :form="form" field="estado"></has-error>
+            </div>
+            <div class="form-group" hidden>
+                  <label>logo</label>
+                  <input type="number" v-model="form.logo"></input>
+                  <has-error :form="form" field="logo"></has-error>
+            </div>
+            <div class="form-group" hidden>
+                  <label>latitud</label>
+                  <input type="text" v-model="form.latitud"  maxlength="255" ></input>
+                  <has-error :form="form" field="latitud"></has-error>
+            </div>
+            <div class="form-group" hidden>
+                  <label>longitud</label>
+                  <input type="text" v-model="form.longitud"  maxlength="255" ></input>
+                  <has-error :form="form" field="longitud"></has-error>
+            </div>
+            <div class="form-group">
 
-    <form @submit.prevent="updateMicrositio" v-if="loaded">
-      <router-link to="/admin/micrositios">Regresar a micrositios</router-link>
+                  <input type="hidden" v-model="form.created_at"></input>
+            </div>
+            <div class="form-group">
+   
+                  <input type="hidden" v-model="form.updated_at"></input>
+            </div>
+      
+          <div class="form-group">
+              <button class="btn btn-sm btn-danger" @click.prevent="deleteMicrositio">{{ (form.busy) ? 'Please wait...' : 'Delete'}}</button>
+                        <button class="btn btn-sm btn-primary" type="submit" :disabled="form.busy" name="button">{{ (form.busy) ? 'Please wait...' : 'Update'}}</button>
 
-      <div class="form-group">
-        <input type="hidden" v-model="form.id" />
+          </div>
+        </form>
+        
+        <div class="google-map" ref="googleMap">
+          <maps-component :coords="coords" v-on:childToParent="onChildClick"/>
+        </div>
       </div>
-      <div class="form-group">
-        <label>nombre</label>
-        <input type="text" v-model="form.nombre" maxlength="255" />
-        <has-error :form="form" field="nombre"></has-error>
+        
+        <span v-else>Loading micrositio...</span>
       </div>
-      <div class="form-group">
-        <label>direccion</label>
-        <input type="text" v-model="form.direccion" maxlength="255" />
-        <has-error :form="form" field="direccion"></has-error>
-      </div>
-      <div class="form-group">
-        <label>descripcion</label>
-        <input type="text" v-model="form.descripcion" maxlength="255" />
-        <has-error :form="form" field="descripcion"></has-error>
-      </div>
-      <div class="form-group">
-        <label>url</label>
-        <input type="text" v-model="form.url" maxlength="255" />
-        <has-error :form="form" field="url"></has-error>
-      </div>
-      <div class="form-group">
-        <label>estado</label>
-        <select v-model="form.estado" class="form-control">
-          <option value="Activo" selected="selected">Activo</option>
-          <option value="Inactivo">Inactivo</option>
-        </select>
-        <has-error :form="form" field="estado"></has-error>
-      </div>
-      <div class="form-group">
-        <input type="hidden" v-model="form.created_at" />
-      </div>
-      <div class="form-group">
-        <input type="hidden" v-model="form.updated_at" />
-      </div>
-
-      <div class="form-group">
-        <button @click.prevent="deleteMicrositio" class="btn btn-danger btn-sm">
-          <i class="fas fa-trash"></i>
-          {{ (form.busy) ? 'Please wait...' : 'Delete'}}
-        </button>
-        <button
-          class="btn btn-primary btn-sm"
-          type="submit"
-          :disabled="form.busy"
-          name="button"
-        >{{ (form.busy) ? 'Please wait...' : 'Update'}}</button>
-      </div>
-    </form>
-
-    <span v-else>Loading micrositio...</span>
-  </div>
 </template>
 
 <script>
+import BrowserComponent from '../BrowserComponent.vue';
+
 import { Form, HasError, AlertError } from "vform";
 export default {
   name: "Micrositio",
-  components: { HasError },
+  components: { HasError, BrowserComponent},
   data: function () {
     return {
       loaded: false,
+            user_role: false,
+      coords:{lat:0,lng:0},
       form: new Form({
-        id: "",
-        nombre: "",
-        direccion: "",
-        descripcion: "",
-        url: "",
-        estado: "",
-        created_at: "",
-        updated_at: "",
-      }),
+          "id" : "",
+          "nombre" : "",
+          "direccion" : "",
+          "descripcion" : "",
+          "url" : "",
+          "estado" : "",
+          "logo" : "",
+          "latitud" : "",
+          "longitud" : "",
+          "created_at" : "",
+          "updated_at" : "",
+        
+      })
     };
   },
   created: function () {
     this.getMicrositio();
+    
+    this.user_id = document
+      .querySelector('meta[name="user-id"]')
+      .getAttribute("content");
+          this.getuser_role(this.user_id);
   },
   methods: {
+    onChildClick(value){
+      this.form.direccion = value.formatted_address;
+      this.form.latitud = value.geometry.location.lat();
+      this.form.longitud = value.geometry.location.lng();
+      console.log("DIRECCION: "+ this.form.address + "\n" +"LATITUD: "+ this.form.latitude + "\n"+"LONGITUD: "+ this.form.longitude + "\n");
+      this.updateMicrositio();
+    },getuser_role: function (id) {
+      var that = this;
+      this.axios.get("/api/roles/user/" + id).then(function (response) {
+        that.user_role = response.data;
+      });
+    },
     getMicrositio: function (Micrositio) {
       var that = this;
       this.form
@@ -92,6 +131,7 @@ export default {
         .then(function (response) {
           that.form.fill(response.data);
           that.loaded = true;
+          that.coords = {lat: that.form.latitud, lng: that.form.longitud};
         })
         .catch(function (e) {
           if (e.response && e.response.status == 404) {

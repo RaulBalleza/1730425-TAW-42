@@ -185,11 +185,7 @@
                   <input type="text" v-model="form.nombre" maxlength="255" />
                   <has-error :form="form" field="nombre"></has-error>
                 </div>
-                <div class="form-group">
-                  <label>direccion</label>
-                  <input type="text" v-model="form.direccion" maxlength="255" />
-                  <has-error :form="form" field="direccion"></has-error>
-                </div>
+                
                 <div class="form-group">
                   <label>descripcion</label>
                   <input type="text" v-model="form.descripcion" maxlength="255" />
@@ -200,33 +196,22 @@
                   <input type="text" v-model="form.url" maxlength="255" />
                   <has-error :form="form" field="url"></has-error>
                 </div>
-                <div class="form-group">
+                <div class="form-group" hidden>
                   <label>logo</label>
                   <input type="number" v-model="form.logo" />
-
                   <has-error :form="form" field="logo"></has-error>
                 </div>
-                <div class="form-group">
+                <div class="form-group" hidden>
                   <label>latitud</label>
                   <input type="text" v-model="form.latitud" maxlength="255" />
                   <has-error :form="form" field="latitud"></has-error>
                 </div>
-                <div class="form-group">
+                <div class="form-group" hidden>
                   <label>longitud</label>
                   <input type="text" v-model="form.longitud" maxlength="255" />
                   <has-error :form="form" field="longitud"></has-error>
                 </div>
-                <div class="form-group">
-                  <label>latitud</label>
-                  <input type="text" v-model="form.latitud" maxlength="255" />
-                  <has-error :form="form" field="latitud"></has-error>
-                </div>
-                <div class="form-group">
-                  <label>longitud</label>
-                  <input type="text" v-model="form.longitud" maxlength="255" />
-                  <has-error :form="form" field="longitud"></has-error>
-                </div>
-                <div class="form-group">
+                <div class="form-group" v-if="user_role=='Admin'">
                   <label>estado</label>
                   <select v-model="form.estado" class="form-control">
                     <option value="Activo" selected="selected">Activo</option>
@@ -240,15 +225,24 @@
                 <div class="form-group">
                   <input type="hidden" v-model="form.updated_at" />
                 </div>
+                <div class="form-group">
+                  <label>direccion</label>
+                  <input disabled type="text" v-model="form.direccion" maxlength="255" />
+                  <has-error :form="form" field="direccion"></has-error>
+                </div>
               </div>
+              
+              <div class="google-map" ref="googleMap">
+          <maps-component v-on:childToParent="onChildClick"/>
+        </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button
-                  class="button"
+                <button type="btn btn-sm btn-danger" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button hidden
+                  class="btn btn-sm btn-primary"
                   type="submit"
                   :disabled="form.busy"
                   name="button"
-                >{{ (form.busy) ? 'Please wait...' : 'Submit'}}</button>
+                >{{ (form.busy) ? 'Please wait...' : 'Registrar'}}</button>
               </div>
             </form>
           </div>
@@ -259,29 +253,33 @@
 </template>
 
 <script>
+import BrowserComponent from '../BrowserComponent.vue';
+
 import { Form, HasError, AlertError } from "vform";
 export default {
   name: "Micrositio",
-  components: { HasError },
+  components: { HasError, BrowserComponent},
   data: function () {
     return {
+      messaged:"0",
       user_id: false,
       user_role: false,
       micrositios: false,
       loaded: false,
       form: new Form({
-        id: "",
-        nombre: "",
-        direccion: "",
-        descripcion: "",
-        url: "",
-        estado: "",
-        logo: "",
-        latitud: "",
-        longitud: "",
-        created_at: "",
-        updated_at: "",
-      }),
+          "id" : "",
+          "nombre" : "",
+          "direccion" : "",
+          "descripcion" : "",
+          "url" : "",
+          "estado" : "Inactivo",
+          "logo" : "1",
+          "latitud" : "",
+          "longitud" : "",
+          "created_at" : "",
+          "updated_at" : "",
+        
+      })
     };
   },
   created: function () {
@@ -289,8 +287,16 @@ export default {
       .querySelector('meta[name="user-id"]')
       .getAttribute("content");
     this.getuser_role(this.user_id);
+    
   },
   methods: {
+    onChildClick(value){
+      this.form.direccion = value.formatted_address;
+      this.form.latitud = value.geometry.location.lat();
+      this.form.longitud = value.geometry.location.lng();
+      console.log("DIRECCION: "+ this.form.address + "\n" +"LATITUD: "+ this.form.latitude + "\n"+"LONGITUD: "+ this.form.longitude + "\n");
+      this.createMicrositio();
+    },
     getuser_role: function (id) {
       var that = this;
       this.axios.get("/api/roles/user/" + id).then(function (response) {

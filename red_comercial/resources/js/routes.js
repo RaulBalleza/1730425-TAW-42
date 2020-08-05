@@ -32,7 +32,7 @@ export const routes = [
         component: ExampleComponent
     }, {
         name: 'browser',
-        path: '/browser/',
+        path: '/',
         component: BrowserComponent
     }, {
         name: 'micrositio-page',
@@ -40,6 +40,7 @@ export const routes = [
         component: MicrositioComponent
     }
 ];
+
 export const routesAdmin = [
     {
         name: 'home',

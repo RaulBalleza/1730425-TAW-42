@@ -14,8 +14,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-  return view('welcome');
+  return view('layouts.browser');
 });
+
+Route::get('/micrositio/{any}', function () {
+  return view('layouts.browser');
+})->where('any', '.*');
 
 Route::get('/browser', function () {
   return view('layouts.browser');

@@ -1,10 +1,9 @@
 <template>
   <div class="container">
     <div>
-      <h2>Search and add a pin</h2>
       <label>
-        <gmap-autocomplete @place_changed="setPlace"></gmap-autocomplete>
-        <button @click="addMarker">Add</button>
+        <gmap-autocomplete class="form-group" @place_changed="setPlace"></gmap-autocomplete>
+        <button @click="addMarker" class="btn btn-primary btn-sm">Actualizar micrositio</button>
       </label>
       <br />
     </div>
@@ -23,13 +22,16 @@
 <script>
 export default {
   name: "GoogleMap",
+  props:{
+    coords: Object
+  },
   data() {
     return {
       // default to Montreal to keep it simple
       // change this to whatever makes sense
       micrositios: false,
       loaded: false,
-      center: { lat: 22.7317819, lng: -98.9766827 },
+      center: { lat: 22.7317819, lng: -98.9766827},
       markers: [],
       places: [],
       currentPlace: null,
@@ -39,9 +41,19 @@ export default {
   mounted() {
     this.listMicrositios();
     this.geolocate();
+    if (this.coords){
+    this.locateMicrositio();
+    }
+
   },
 
   methods: {
+    locateMicrositio(){
+        this.center = {
+          lat: parseFloat(this.coords.lat),
+          lng: parseFloat(this.coords.lng),
+        };
+    },
     // receives a place object via the autocomplete component
     initMarkers(lat, long) {
       const marker = {
@@ -61,6 +73,7 @@ export default {
         });
         that.loaded = true;
       });
+
     },
     setPlace(place) {
       this.currentPlace = place;
@@ -74,6 +87,7 @@ export default {
         this.markers.push({ position: marker });
         this.places.push(this.currentPlace);
         this.center = marker;
+        this.$emit('childToParent',this.currentPlace)
         this.currentPlace = null;
       }
     },
@@ -88,3 +102,7 @@ export default {
   },
 };
 </script>
+
+<style lang="less">
+.pac-container { z-index: 100000 !important; }
+</style>
