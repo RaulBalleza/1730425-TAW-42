@@ -2,17 +2,13 @@
   <div>
     <!-- Page Wrapper -->
     <div id="wrapper">
-      <div v-for="(ruta) in routes" :key="ruta.id">
-        <sidebar-component v-if="$route.name === ruta.name"></sidebar-component>
-      </div>
+        <sidebar-component></sidebar-component>
 
       <!-- Content Wrapper -->
       <div id="content-wrapper" class="d-flex flex-column">
         <!-- Main Content -->
         <div id="content">
-          <div v-for="(ruta) in routes" :key="ruta.id">
-            <topbar-component v-if="$route.name === ruta.name"></topbar-component>
-          </div>
+            <topbar-component></topbar-component>
 
           <!-- Begin Page Content -->
           <transition name>
@@ -22,9 +18,7 @@
           <!-- /.container-fluid -->
         </div>
         <!-- End of Main Content -->
-        <div v-for="(ruta) in routes" :key="ruta.id">
-          <footer-component v-if="$route.name === ruta.name"></footer-component>
-        </div>
+          <footer-component ></footer-component>
       </div>
       <!-- End of Content Wrapper -->
     </div>
@@ -39,16 +33,12 @@
 
 
 <script>
-import { routesAdmin } from "./routes";
-
 export default {
   data() {
     return {
-      routes: false,
     };
   },
   mounted() {
-    this.routes = routesAdmin;
   },
 };
 </script>

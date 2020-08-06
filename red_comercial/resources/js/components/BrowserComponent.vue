@@ -1,11 +1,36 @@
 <template>
   <div class="browser">
     <div class="left">
-    <ul id="myUL" v-for="(micrositio, index) in micrositios" :position="micrositio.id">
-  <li><a>{{micrositio.nombre}}        
-  <button @click="locate(micrositio.latitud, micrositio.longitud)" class="btn btn-primary btn-sm">Ver en mapa</button>
+    <div style="width:100%">
+    <h4>Buscador:</h4>
+    <input style="width:100%" v-on:input="showResults($event)" id="search" type="text" v-model="search" placeholder="Busque Tienda, producto o servicio"></input></div>
+    <div v-if="resultsM.length > 0">
+<h5>Tiendas</h5>
+    <ul id="myUL" v-for="(result, index) in resultsM" :position="result.id">
+  <li><a>{{result.nombre}}    <button @click="locate(result.latitud, result.longitud)" class="btn btn-primary btn-sm">Ver en mapa</button>
+      
 </a></li>
 </ul>
+    </div>
+
+<div  v-if="resultsP.length > 0" >
+<h5>Productos</h5>
+    <ul id="myUL" v-for="(result, index) in resultsP" :position="result.id">
+  <li><a>{{result.nombre}}    <button @click="locate(result.latitud, result.longitud)" class="btn btn-primary btn-sm">Ver tienda en mapa</button>
+          
+</a></li>
+</ul>
+    </div>
+
+    <div  v-if="resultsS.length > 0" >
+<h5>Servicios</h5>
+    <ul id="myUL" v-for="(result, index) in resultsS" :position="result.id">
+  <li><a>{{result.nombre}}   <button @click="locate(result.latitud, result.longitud)" class="btn btn-primary btn-sm">Ver tienda en mapa</button>
+               
+</a></li>
+</ul>
+    </div>
+
     </div>
     <div class="right" >
     <gmap-map :center="center" 
@@ -51,6 +76,14 @@ export default {
         },
         map:null,
         currentMidx: null,
+        search : "",
+        resultsM : false,
+        
+        resultsP : false,
+        
+        resultsS : false,
+        products: false,
+        servicios: false,
       micrositios: false,
       loaded: false,
       center: { lat: 22.7317819, lng: -98.9766827 },
@@ -69,11 +102,77 @@ export default {
         map.fitBounds(bounds);
       });
     this.listMicrositios();
+    this.listProducts();
+    this.listServicios();
     this.geolocate();
+    this.showResults();
   },
 
   methods: {
-    
+    showResults: function(){
+               var that =  this;
+      //console.log(that.search);
+      if(that.search===""){
+        
+      //   that.micrositios.forEach(function(item){
+      //     that.resultsM.push(item);
+      // })
+      that.resultsM = that.micrositios;
+
+        that.resultsP= false;
+        that.resultsS= false;
+      }else{
+      
+        that.resultsM = [];
+        that.resultsP= [];
+        that.resultsS= [];
+      that.micrositios.forEach(function(item){
+        if(item.nombre.toUpperCase().includes(that.search.toUpperCase())){
+          //console.log("LO CONTIENE" + item.nombre);
+          that.resultsM.push(item);
+        }
+      })
+      
+      that.products.forEach(function(item){
+        if(item.nombre.toUpperCase().includes(that.search.toUpperCase())){
+          //console.log("LO CONTIENE" + item.nombre);
+          var ms = that.micrositios.find(micrositio => micrositio.id == item.id_micrositio);
+          item.latitud = ms.latitud
+          item.longitud = ms.longitud
+          that.resultsP.push(item);
+        }
+      })
+
+      that.servicios.forEach(function(item){
+        if(item.nombre.toUpperCase().includes(that.search.toUpperCase())){
+          //console.log("LO CONTIENE" + item.nombre);
+          
+          var ms = that.micrositios.find(micrositio => micrositio.id == item.id_micrositio);
+          console.log(ms);
+          item.latitud = ms.latitud
+          item.longitud = ms.longitud
+          that.resultsS.push(item);
+        }
+      })
+      
+      }
+
+      console.log(this.search);
+    },
+    listServicios: function () {
+      var that = this;
+      this.axios.get("/api/servicios").then(function (response) {
+        that.servicios = response.data;
+        //that.resultsS = that.servicios;
+      });
+    },
+    listProducts: function () {
+      var that = this;
+      this.axios.get("/api/products").then(function (response) {
+        that.products = response.data;
+        //that.resultsP = that.products;
+      });
+    },
     toggleInfoWindow: function (marker, idx) {
         this.infoWindowPos = marker.position;
         this.infoContent = this.getInfoWindowContent(marker);
@@ -134,6 +233,8 @@ export default {
           that.initMarkers(micrositio);
         });
         that.loaded = true;
+              that.resultsM = that.micrositios;
+
       });
     },
     setPlace(place) {
