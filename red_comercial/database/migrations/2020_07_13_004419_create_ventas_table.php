@@ -15,8 +15,6 @@ class CreateVentasTable extends Migration
     {
         Schema::create('ventas', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_micrositio');
-            $table->foreign('id_micrositio')->references('id')->on('micrositios');
             $table->timestamps();
         });
     }

@@ -68,15 +68,14 @@ Route::put('roles/{id}', 'RolesController@update');
 Route::delete('roles/{id}', 'RolesController@delete');
 Route::get('/roles/user/{id}', 'UtilitiesController@getUserRole');
 
-Route::get('users', 'UsersController@list');
-Route::get('users/{id}', 'UsersController@get');
-Route::post('users', 'UsersController@create');
-Route::put('users/{id}', 'UsersController@update');
-Route::delete('users/{id}', 'UsersController@delete');
-
 Route::get('clientehasmicrositios', 'ClientehasmicrositiosController@list');
 Route::get('clientehasmicrositios/{id}', 'ClientehasmicrositiosController@get');
 Route::post('clientehasmicrositios', 'ClientehasmicrositiosController@create');
 Route::put('clientehasmicrositios/{id}', 'ClientehasmicrositiosController@update');
 Route::delete('clientehasmicrositios/{id}', 'ClientehasmicrositiosController@delete');
 //Borrar de aqui para abajo
+Route::get('ventahasproducts', 'VentahasproductsController@list');
+Route::get('ventahasproducts/{id}', 'VentahasproductsController@get');
+Route::post('ventahasproducts', 'VentahasproductsController@create');
+Route::put('ventahasproducts/{id}', 'VentahasproductsController@update');
+Route::delete('ventahasproducts/{id}', 'VentahasproductsController@delete');

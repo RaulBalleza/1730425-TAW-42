@@ -1,4 +1,4 @@
-const mix = require('laravel-mix');
+const mix = require("laravel-mix");
 
 /*
  |--------------------------------------------------------------------------
@@ -11,13 +11,16 @@ const mix = require('laravel-mix');
  |
  */
 
-
-mix.js('resources/js/app.js', 'public/js')
+mix.js("resources/js/app.js", "public/js")
     //.sass('resources/sass/app.scss', 'public/css/app.css')
-    .styles(['public/vendor/fontawesome-free/css/all.min.css',
-        'public/css/sb-admin-2.min.css',
-        'public/vendor/datatables/dataTables.bootstrap4.min.css'], 'public/css/app.css');
-
+    .styles(
+        [
+            "public/vendor/fontawesome-free/css/all.min.css",
+            "public/css/sb-admin-2.min.css",
+            "public/vendor/datatables/dataTables.bootstrap4.min.css"
+        ],
+        "public/css/app.css"
+    );
 
 /*
 mix.scripts([

@@ -1,89 +1,240 @@
 <template>
-  <div class="container">
-    <div>
-      <h2>Search and add a pin</h2>
-      <label>
-        <gmap-autocomplete @place_changed="setPlace"></gmap-autocomplete>
-        <button @click="addMarker">Add</button>
-      </label>
-      <br />
+        <div>
+        <!-- Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="#">{{ micrositio.nombre }}</a>
+                <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#navbarResponsive"
+                    aria-controls="navbarResponsive"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                >
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#"
+                                >Home
+                                <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Page Content -->
+        <div class="container">
+            <!-- Heading Row -->
+            <div class="row align-items-center my-5">
+                <div class="col-lg-7">
+                    <img
+                        class="img-fluid rounded mb-4 mb-lg-0"
+                        src="http://placehold.it/900x400"
+                        alt=""
+                    />
+                </div>
+                <!-- /.col-lg-8 -->
+                <div class="col-lg-5">
+                    <h1 class="font-weight-light">{{ micrositio.nombre }}</h1>
+                    <p>
+                        {{ micrositio.descripcion }}
+                    </p>
+                    <a class="btn btn-primary" href="#">Call to Action!</a>
+                </div>
+                <!-- /.col-md-4 -->
+            </div>
+            <!-- /.row -->
+
+            <div hidden>
+                <div
+                    id="carouselExampleIndicators"
+                    class="carousel slide my-4"
+                    data-ride="carousel"
+                >
+                    <ol class="carousel-indicators">
+                        <li
+                            data-target="#carouselExampleIndicators"
+                            data-slide-to="0"
+                            class="active"
+                        ></li>
+                        <li
+                            data-target="#carouselExampleIndicators"
+                            data-slide-to="1"
+                        ></li>
+                        <li
+                            data-target="#carouselExampleIndicators"
+                            data-slide-to="2"
+                        ></li>
+                    </ol>
+                    <div class="carousel-inner" role="listbox">
+                        <div class="carousel-item active">
+                            <img
+                                class="d-block img-fluid"
+                                src="http://placehold.it/900x350"
+                                alt="First slide"
+                            />
+                        </div>
+                        <div class="carousel-item">
+                            <img
+                                class="d-block img-fluid"
+                                src="http://placehold.it/900x350"
+                                alt="Second slide"
+                            />
+                        </div>
+                        <div class="carousel-item">
+                            <img
+                                class="d-block img-fluid"
+                                src="http://placehold.it/900x350"
+                                alt="Third slide"
+                            />
+                        </div>
+                    </div>
+                    <a
+                        class="carousel-control-prev"
+                        href="#carouselExampleIndicators"
+                        role="button"
+                        data-slide="prev"
+                    >
+                        <span
+                            class="carousel-control-prev-icon"
+                            aria-hidden="true"
+                        ></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a
+                        class="carousel-control-next"
+                        href="#carouselExampleIndicators"
+                        role="button"
+                        data-slide="next"
+                    >
+                        <span
+                            class="carousel-control-next-icon"
+                            aria-hidden="true"
+                        ></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Content Row -->
+            <div class="shop" v-if="products.length > 0">
+                <div class="row">
+                    <div
+                        class="col-lg-4 col-md-6 mb-4"
+                        v-for="(product, index) in products"
+                        :position="product.id"
+                    >
+                        <div class="card h-100">
+                            <a href="#"
+                                ><img
+                                    class="card-img-top"
+                                    src="http://placehold.it/700x400"
+                                    alt=""
+                            /></a>
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                    <a href="#">{{ product.nombre }}</a>
+                                </h4>
+                                <h5>${{ product.precio }}</h5>
+                                <p class="card-text">
+                                    {{ product.descripcion }}
+                                </p>
+                            </div>
+                            <div class="card-footer">
+                                <small class="text-muted"
+                                    >&#9733; &#9733; &#9733; &#9733;
+                                    &#9734;</small
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container -->
+
+        <!-- Footer -->
+        <footer class="py-5 bg-dark fixed-bottom">
+            <div class="container">
+                <p class="m-0 text-center text-white">
+                    Copyright &copy; Your Website 2020
+                </p>
+            </div>
+            <!-- /.container -->
+        </footer>
     </div>
-    <br />
-    <gmap-map id="g-map" :center="center" :zoom="12" style="width:100%;  height: 400px;">
-      <gmap-marker
-        :key="index"
-        v-for="(m, index) in markers"
-        :position="m.position"
-        @click="center=m.position"
-      ></gmap-marker>
-    </gmap-map>
-  </div>
 </template>
 
 <script>
 export default {
-  name: "GoogleMap",
-  data() {
-    return {
-      // default to Montreal to keep it simple
-      // change this to whatever makes sense
-      micrositios: false,
-      loaded: false,
-      center: { lat: 22.7317819, lng: -98.9766827 },
-      markers: [],
-      places: [],
-      currentPlace: null,
-    };
-  },
-
-  mounted() {
-    this.listMicrositios();
-    this.geolocate();
-  },
-
-  methods: {
-    // receives a place object via the autocomplete component
-    initMarkers(lat, long) {
-      const marker = {
-        lat: parseFloat(lat),
-        lng: parseFloat(long),
-      };
-
-      this.markers.push({ position: marker });
+    props: {
+        id: Number
     },
-    listMicrositios() {
-      var that = this;
-      this.axios.get("/api/micrositios").then(function (response) {
-        that.micrositios = response.data;
-        that.micrositios.forEach(function (micrositio) {
-          that.initMarkers(micrositio.latitud, micrositio.longitud);
-        });
-        that.loaded = true;
-      });
+    data() {
+        return {};
     },
-    setPlace(place) {
-      this.currentPlace = place;
+    mounted() {
+        alert(this.id);
     },
-    addMarker() {
-      if (this.currentPlace) {
-        const marker = {
-          lat: this.currentPlace.geometry.location.lat(),
-          lng: this.currentPlace.geometry.location.lng(),
+    methods: {}
+};
+</script>
+<script>
+export default {
+    props: {
+        id: Number
+    },
+    data() {
+        return {
+            idm: false,
+            loaded: false,
+            micrositio: false,
+            products: false
         };
-        this.markers.push({ position: marker });
-        this.places.push(this.currentPlace);
-        this.center = marker;
-        this.currentPlace = null;
-      }
     },
-    geolocate: function () {
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.center = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        };
-      });
+
+    mounted() {
+        alert(this.id);
+        this.getMicrositio();
+        this.listProducts();
     },
-  },
+    methods: {
+        wow() {
+            let vm = this;
+            alert(vm.id);
+        },
+        listProducts() {
+            var that = this;
+            var idm = this.id;
+            this.axios
+                .get("/api/" + idm + "/products")
+                .then(function(response) {
+                    that.products = response.data;
+                });
+        },
+        getMicrositio() {
+            var that = this;
+            var idm = this.id;
+            this.axios
+                .get("/api/micrositios/" + idm)
+                .then(function(response) {
+                    that.micrositio = response.data;
+                    that.loaded = true;
+                })
+                .catch(function(e) {
+                    if (e.response && e.response.status == 404) {
+                        0;
+                        that.$router.push("/404");
+                    }
+                });
+        }
+    }
 };
 </script>

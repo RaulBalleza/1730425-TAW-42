@@ -3,10 +3,10 @@
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-window.Vue = require('vue');
+window.Vue = require("vue");
 
-import VueAxios from 'vue-axios';
-import axios from 'axios';
+import VueAxios from "vue-axios";
+import axios from "axios";
 
 Vue.use(VueAxios, axios);
 
@@ -15,38 +15,45 @@ const MAPS_API_KEY = "AIzaSyAP7WklFEn9_GJMHto9IGZucRegx9T_Jik";
 import * as VueGoogleMaps from "vue2-google-maps";
 
 Vue.use(VueGoogleMaps, {
-  load: {
-    key: MAPS_API_KEY,
-    libraries: "places" // necessary for places input
-  }
+    load: {
+        key: MAPS_API_KEY,
+        libraries: "places" // necessary for places input
+    }
 });
 
-import LoadScript from 'vue-plugin-load-script';
+import LoadScript from "vue-plugin-load-script";
 Vue.use(LoadScript);
 
-Vue.loadScript("/vendor/jquery/jquery.min.js").then(() => {
-    Vue.loadScript("/vendor/bootstrap/js/bootstrap.bundle.min.js")
-    Vue.loadScript("/vendor/jquery-easing/jquery.easing.min.js")
-    Vue.loadScript("/js/sb-admin-2.min.js")
-}).then(() => {
-    Vue.loadScript("/vendor/chart.js/Chart.min.js").then(() => {
-        //Vue.loadScript("/js/demo/chart-area-demo.js")
-        //Vue.loadScript("/js/demo/chart-pie-demo.js")
+Vue.loadScript("/vendor/jquery/jquery.min.js")
+    .then(() => {
+        Vue.loadScript("/vendor/bootstrap/js/bootstrap.bundle.min.js");
+        Vue.loadScript("/vendor/jquery-easing/jquery.easing.min.js");
+        Vue.loadScript("/js/sb-admin-2.min.js");
     })
-}).then(() => {
-    Vue.loadScript("/vendor/datatables/jquery.dataTables.min.js").then(() => {
-        Vue.loadScript("/vendor/datatables/dataTables.bootstrap4.min.js")
-        Vue.loadScript("/js/demo/datatables-demo.js")
+    .then(() => {
+        Vue.loadScript("/vendor/chart.js/Chart.min.js").then(() => {
+            //Vue.loadScript("/js/demo/chart-area-demo.js")
+            //Vue.loadScript("/js/demo/chart-pie-demo.js")
+        });
     })
-}).then(() => {
-    Vue.loadScript("https://polyfill.io/v3/polyfill.min.js?features=default")
-    //Vue.loadScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyAP7WklFEn9_GJMHto9IGZucRegx9T_Jik&callback=initMap&libraries=&v=weekly")
-    //Vue.loadScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyAP7WklFEn9_GJMHto9IGZucRegx9T_Jik&callback=initMap")
-})
+    .then(() => {
+        Vue.loadScript("/vendor/datatables/jquery.dataTables.min.js").then(
+            () => {
+                Vue.loadScript(
+                    "/vendor/datatables/dataTables.bootstrap4.min.js"
+                );
+                Vue.loadScript("/js/demo/datatables-demo.js");
+            }
+        );
+    })
+    .then(() => {
+        Vue.loadScript(
+            "https://polyfill.io/v3/polyfill.min.js?features=default"
+        );
+    })
     .catch(() => {
         // Failed to fetch script
     });
-
 
 /**
  * The following block of code may be used to automatically register your
@@ -56,8 +63,16 @@ Vue.loadScript("/vendor/jquery/jquery.min.js").then(() => {
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
-const files = require.context('./', true, /\.vue$/i)
-files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+const files = require.context("./", true, /\.vue$/i);
+files.keys().map(key =>
+    Vue.component(
+        key
+            .split("/")
+            .pop()
+            .split(".")[0],
+        files(key).default
+    )
+);
 
 //Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
@@ -73,18 +88,56 @@ const app = new Vue({
 });
 */
 
-import { routes, routesAdmin } from './routes.js';
+import { routes, routesAdmin } from "./routes.js";
 
-import VueRouter from 'vue-router';
+import VueRouter from "vue-router";
 Vue.use(VueRouter);
 
-// DECLARACION DEL MODULO ROUTER CON LAS RUTAS DECLARADAS
-const router = new VueRouter({ mode: 'history', routes: routesAdmin });
-const router2 = new VueRouter({ mode: 'history', routes: routes });
+import App from "./app.vue";
+import App2 from "./app2.vue";
+import MicrositioComponent from "./components/micrositio/MicrositioComponent.vue";
+//import MicrositioComponent from "./components/ExampleComponent.vue";
 
-import App from './app.vue';
-import App2 from './app2.vue';
-// ESTA VARIABLE MONTA LA APLICACION Y HACE REFERENIA AL CONTENEDOR "APP"
-const app = new Vue(Vue.util.extend({ router }, App)).$mount('#app');
+var rutas_micrositios = [];
+var rutas = [];
 
-const app2 = new Vue(Vue.util.extend({ router: router2 }, App2)).$mount('#app2');
+function listMicrositios() {
+    return axios.get("/api/micrositios").then(response => {
+        return response.data;
+    });
+}
+
+listMicrositios()
+    .then(micrositios => {
+        micrositios.forEach(micrositio => {
+            rutas_micrositios.push({
+                name: micrositio.nombre,
+                path: "/micrositio/" + micrositio.url+"/",
+                component: MicrositioComponent,
+                props: { id: micrositio.id}
+            });
+        });
+        rutas = routes.concat(rutas_micrositios);
+        initApps();
+    })
+    .catch((e) => {
+        {
+            //console.log(e);
+        }
+    });
+
+function initApps() {
+    // DECLARACION DEL MODULO ROUTER CON LAS RUTAS DECLARADAS
+    const router = new VueRouter({ mode: "history", routes: routesAdmin });
+    // ESTA VARIABLE MONTA LA APLICACION Y HACE REFERENIA AL CONTENEDOR "APP"
+    const app = new Vue(Vue.util.extend({ router }, App)).$mount("#app");
+
+    const router2 = new VueRouter({ mode: "history", routes: rutas });
+    //console.log(router2);
+
+    const app2 = new Vue(Vue.util.extend({ router: router2 }, App2)).$mount(
+        "#app2"
+    );
+    //console.log(app2);
+
+}

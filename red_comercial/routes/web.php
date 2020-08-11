@@ -12,7 +12,9 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('/test', function () {
+  return view('layouts.browser');
+});
 Route::get('/', function () {
   return view('layouts.browser');
 });
@@ -27,13 +29,10 @@ Route::get('/browser', function () {
 
 Auth::routes();
 
-//Route::get('/home', 'HomeController@index')->name('home');
-
 Route::get('/admin', function () {
-  return view('layouts.app');
+  return view('layouts.admin');
 });
 
 Route::get('/admin/{any}', function () {
-  return view('layouts.app');
+  return view('layouts.admin');
 })->where('any', '.*');
-//Route::resource('products', 'ProductController');

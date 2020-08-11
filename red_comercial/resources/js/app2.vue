@@ -1,17 +1,16 @@
 <template>
-  <div>
-    <transition name>
-      <router-view></router-view>
-    </transition>
-  </div>
+    <div>
+        <transition name>
+            <router-view></router-view>
+        </transition>
+    </div>
 </template>
-
 
 <script>
 export default {
-  data() {
-    return {};
-  },
-  mounted() {},
+    data() {
+        return {};
+    },
+    mounted() {}
 };
 </script>
